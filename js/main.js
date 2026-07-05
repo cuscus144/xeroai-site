@@ -439,3 +439,29 @@
     }, { threshold: 0.3 });
     io.observe(track);
   })();
+
+  // ===== FAQ accordion — one open at a time, keyboard accessible via native <button> =====
+  (function(){
+    const items = document.querySelectorAll('.faq-item');
+    if(!items.length) return;
+
+    items.forEach(item => {
+      const btn = item.querySelector('.faq-question');
+      if(!btn) return;
+
+      btn.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+
+        items.forEach(other => {
+          other.classList.remove('open');
+          const otherBtn = other.querySelector('.faq-question');
+          if(otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        });
+
+        if(!isOpen){
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  })();
