@@ -2185,13 +2185,15 @@
     background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 20px 50px -34px rgba(94,142,255,0.35);
     overflow: hidden;
     transition: border-color .4s ease, box-shadow .4s ease, transform .3s ease;
   }
 
   .faq-card:hover{
-    border-color: rgba(94,142,255,0.28);
-    transform: translateY(-2px);
+    border-color: rgba(94,142,255,0.32);
+    box-shadow: 0 24px 56px -30px rgba(94,142,255,0.5);
+    transform: translateY(-3px);
   }
 
   .faq-card.open{
@@ -2270,6 +2272,14 @@
     color: var(--dim);
     line-height: 1.75;
     max-width: 640px;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .faq-card.open .faq-card-body p{
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .45s ease .1s, transform .45s ease .1s;
   }
 
   /* ============ FINAL CALL TO ACTION (redesigned) ============ */
@@ -2484,16 +2494,10 @@
     padding: 26px 0 40px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
+    justify-content: center;
+    text-align: center;
   }
   .footer-bottom p{ font-size: 12.5px; color: var(--dim-2); }
-  .footer-tagline{
-    font-family: var(--font-mono);
-    letter-spacing: 0.02em;
-    text-align: right;
-  }
 
   /* ============ RESPONSIVE: FAQ / CTA / FOOTER (redesigned) ============ */
   @media (max-width: 980px){
@@ -2518,12 +2522,12 @@
     .cta-trust-row{ gap: 10px; }
 
     .footer-links-grid{ grid-template-columns: 1fr; gap: 32px; text-align: center; padding-top: 44px; }
-    .footer-bottom{ flex-direction: column; text-align: center; }
-    .footer-tagline{ text-align: center; }
+    .footer-bottom{ text-align: center; }
   }
 
   @media (prefers-reduced-motion: reduce){
     .faq-card-body{ transition: none !important; }
+    .faq-card-body p{ transition: none !important; opacity: 1 !important; transform: none !important; }
     .cta-panel-glow{ animation: none !important; }
     .cta-particles span{ animation: none !important; opacity: 0; }
     .footer-divider i{ animation: none !important; opacity: 0; }
