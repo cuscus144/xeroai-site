@@ -332,3 +332,110 @@
       revealTargets.forEach(el => io.observe(el));
     }
   })();
+
+  // ===== Shared reveal-on-scroll (used by Brokers, Pricing, Xero Pay) =====
+  (function(){
+    const targets = document.querySelectorAll('.reveal-up');
+    if(!targets.length) return;
+
+    const reduceMotionReveal = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if(reduceMotionReveal || !('IntersectionObserver' in window)){
+      targets.forEach(el => el.classList.add('in-view'));
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    targets.forEach(el => io.observe(el));
+  })();
+
+  // ===== Xero Pay wallet mock: balance counter + chart draw =====
+  (function(){
+    const walletMock = document.querySelector('.wallet-mock');
+    if(!walletMock) return;
+
+    const reduceMotionWallet = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const balanceEl = walletMock.querySelector('.wallet-balance');
+    const chartPath = walletMock.querySelector('.wallet-chart-path');
+    let played = false;
+
+    function animateValue(el, duration){
+      const target = parseFloat(el.dataset.target);
+      if(Number.isNaN(target)) return;
+      const prefix = el.dataset.prefix || '';
+      const decimals = el.dataset.decimals !== undefined ? parseInt(el.dataset.decimals, 10) : 0;
+      if(reduceMotionWallet){
+        el.textContent = prefix + target.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+        return;
+      }
+      const start = performance.now();
+      function frame(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = prefix + (target * eased).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+        if(p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function playWalletDemo(){
+      if(played) return;
+      played = true;
+      if(balanceEl) animateValue(balanceEl, 1400);
+      if(chartPath){
+        const len = chartPath.getTotalLength();
+        chartPath.style.strokeDasharray = len;
+        chartPath.style.strokeDashoffset = reduceMotionWallet ? 0 : len;
+        if(!reduceMotionWallet){
+          chartPath.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(.16,1,.3,1)';
+          requestAnimationFrame(() => { chartPath.style.strokeDashoffset = 0; });
+        }
+      }
+    }
+
+    if(reduceMotionWallet || !('IntersectionObserver' in window)){
+      playWalletDemo();
+    }else{
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            playWalletDemo();
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      io.observe(walletMock);
+    }
+  })();
+
+  // ===== Xero Pay roadmap: fill the connecting line once in view =====
+  (function(){
+    const fill = document.getElementById('roadmapFill');
+    const track = document.querySelector('.roadmap-track');
+    if(!fill || !track) return;
+
+    const reduceMotionRoadmap = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if(reduceMotionRoadmap || !('IntersectionObserver' in window)){
+      fill.classList.add('fill-active');
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          fill.classList.add('fill-active');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    io.observe(track);
+  })();
