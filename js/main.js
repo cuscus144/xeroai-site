@@ -442,11 +442,11 @@
 
   // ===== FAQ accordion — one open at a time, keyboard accessible via native <button> =====
   (function(){
-    const items = document.querySelectorAll('.faq-item');
+    const items = document.querySelectorAll('.faq-card');
     if(!items.length) return;
 
     items.forEach(item => {
-      const btn = item.querySelector('.faq-question');
+      const btn = item.querySelector('.faq-card-head');
       if(!btn) return;
 
       btn.addEventListener('click', () => {
@@ -454,7 +454,7 @@
 
         items.forEach(other => {
           other.classList.remove('open');
-          const otherBtn = other.querySelector('.faq-question');
+          const otherBtn = other.querySelector('.faq-card-head');
           if(otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
         });
 
