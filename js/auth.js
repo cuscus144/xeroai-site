@@ -125,9 +125,9 @@
         setStatus(statusEl, 'Signed in successfully — redirecting…', 'success');
 
         setTimeout(() => {
-          // Temporary: redirect to onboarding.html until dashboard.html is built.
-          // Change back to 'dashboard.html' once the dashboard is ready.
-          window.location.href = 'onboarding.html';
+          // Temporary: redirect to onboarding-step1.html until dashboard.html is built.
+          // Change to 'dashboard.html' once the dashboard is ready.
+          window.location.href = 'onboarding-step1.html';
         }, redirectDelay);
       }, loadingDelay);
     });
@@ -482,98 +482,6 @@
     const formatted = expiryDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
     expiryEl.textContent = 'Trial ends ' + formatted + ' — no charges until then.';
-  })();
-
-  /* ============ ONBOARDING PAGE ============ */
-  (function(){
-    const shell = document.querySelector('.onboarding-shell');
-    if(!shell) return;
-
-    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-    /* ---- toggle-selectable cards (markets + brokers), multi-select ---- */
-    const selectableCards = document.querySelectorAll('.market-card, .ob-broker-card');
-    selectableCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const nowSelected = !card.classList.contains('selected');
-        card.classList.toggle('selected', nowSelected);
-        card.setAttribute('aria-pressed', String(nowSelected));
-        updateContinueState();
-      });
-    });
-
-    /* ---- ripple effect on click ---- */
-    document.querySelectorAll('.rippleable').forEach(el => {
-      el.addEventListener('pointerdown', (e) => {
-        const rect = el.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const ripple = document.createElement('span');
-        ripple.className = 'ripple';
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-        el.appendChild(ripple);
-        ripple.addEventListener('animationend', () => ripple.remove());
-      });
-    });
-
-    /* ---- subtle 3D tilt on hover (desktop pointer only) ---- */
-    if(canHover && !reduceMotion){
-      document.querySelectorAll('.tilt-card').forEach(card => {
-        const maxTilt = 5;
-
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const px = (e.clientX - rect.left) / rect.width;
-          const py = (e.clientY - rect.top) / rect.height;
-          const rotateY = (px - 0.5) * maxTilt * 2;
-          const rotateX = (0.5 - py) * maxTilt * 2;
-          card.style.transform = 'perspective(700px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-2px)';
-        });
-
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = '';
-        });
-      });
-    }
-
-    /* ---- continue button: enabled once >=1 broker/exchange selected ---- */
-    const continueBtn = document.getElementById('onboardingContinue');
-    const hintEl = document.getElementById('onboardingHint');
-    const brokerCards = document.querySelectorAll('.ob-broker-card');
-
-    function updateContinueState(){
-      if(!continueBtn) return;
-      const anyBrokerSelected = Array.from(brokerCards).some(c => c.classList.contains('selected'));
-
-      continueBtn.disabled = !anyBrokerSelected;
-      continueBtn.setAttribute('aria-disabled', String(!anyBrokerSelected));
-
-      if(hintEl){
-        hintEl.textContent = anyBrokerSelected
-          ? 'You can connect more accounts anytime from your dashboard.'
-          : 'Select at least one broker or exchange to continue.';
-      }
-    }
-
-    if(continueBtn){
-      continueBtn.addEventListener('click', () => {
-        if(continueBtn.disabled || continueBtn.classList.contains('is-loading')) return;
-        simulateSubmit(continueBtn, () => {
-          window.location.href = 'dashboard.html';
-        });
-      });
-    }
-
-    /* ---- reveal sections on load ---- */
-    const revealTargets = document.querySelectorAll('.reveal-onb');
-    if(reduceMotion){
-      revealTargets.forEach(el => el.classList.add('in-view'));
-    }else{
-      revealTargets.forEach((el, i) => {
-        setTimeout(() => el.classList.add('in-view'), 120 + i * 130);
-      });
-    }
   })();
 
 })();
