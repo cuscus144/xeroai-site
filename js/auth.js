@@ -484,4 +484,78 @@
     expiryEl.textContent = 'Trial ends ' + formatted + ' — no charges until then.';
   })();
 
+  /* ============ ONBOARDING STEP 1 (v2) ============ */
+  (function(){
+    const shell = document.querySelector('.ob2-shell');
+    if(!shell) return;
+
+    /* ---- animated progress bar ---- */
+    const fill = document.getElementById('ob2ProgressFill');
+    const pct = document.getElementById('ob2ProgressPct');
+    if(fill){
+      const target = parseInt(fill.dataset.target, 10) || 0;
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          fill.style.width = target + '%';
+          if(pct) pct.textContent = target + '%';
+        }, 200);
+      });
+    }
+
+    /* ---- single-select market cards (Forex selected by default) ---- */
+    const cards = Array.from(document.querySelectorAll('.ob2-market-card'));
+
+    function selectCard(card){
+      cards.forEach(c => {
+        const isThis = c === card;
+        c.classList.toggle('selected', isThis);
+        c.setAttribute('aria-checked', String(isThis));
+        c.tabIndex = isThis ? 0 : -1;
+      });
+    }
+
+    cards.forEach((card, index) => {
+      card.addEventListener('click', () => selectCard(card));
+
+      card.addEventListener('keydown', (e) => {
+        let targetIndex = null;
+        if(e.key === 'ArrowRight' || e.key === 'ArrowDown'){
+          targetIndex = (index + 1) % cards.length;
+        }else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp'){
+          targetIndex = (index - 1 + cards.length) % cards.length;
+        }else if(e.key === ' ' || e.key === 'Enter'){
+          e.preventDefault();
+          selectCard(card);
+          return;
+        }
+        if(targetIndex !== null){
+          e.preventDefault();
+          cards[targetIndex].focus();
+        }
+      });
+    });
+
+    /* ---- continue button ---- */
+    const continueBtn = document.getElementById('ob2Continue');
+    if(continueBtn){
+      continueBtn.addEventListener('click', () => {
+        if(continueBtn.classList.contains('is-loading')) return;
+        const nextPage = continueBtn.dataset.next || 'onboarding-step2.html';
+        simulateSubmit(continueBtn, () => {
+          window.location.href = nextPage;
+        });
+      });
+    }
+
+    /* ---- reveal on load ---- */
+    const revealTargets = document.querySelectorAll('.reveal-ob2');
+    if(reduceMotion){
+      revealTargets.forEach(el => el.classList.add('in-view'));
+    }else{
+      revealTargets.forEach((el, i) => {
+        setTimeout(() => el.classList.add('in-view'), 120 + i * 100);
+      });
+    }
+  })();
+
 })();
