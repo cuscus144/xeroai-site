@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Your Trading Market — XeroAI Onboarding</title>
+<meta name="description" content="Step 1 of 4 — choose the trading market you want XeroAI to automate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dash-body onboarding-step-body">
+
+  <canvas id="dashNetworkCanvas" class="dash-network-canvas" aria-hidden="true"></canvas>
+  <div class="dash-particles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="onboarding-step-shell">
+
+    <header class="onboarding-step-header">
+      <a href="index.html" class="dash-logo">
+        <span class="dash-logo-mark"></span>
+        XeroAI
+      </a>
+
+      <div class="onboarding-step-progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" aria-label="Onboarding progress">
+        <div class="step-progress-track"><div class="step-progress-fill" id="stepProgressFill" style="width:0%" data-target="25"></div></div>
+        <span class="step-progress-label">Step 1 of 4</span>
+      </div>
+    </header>
+
+    <main class="onboarding-step-main">
+
+      <div class="onboarding-step-intro reveal-step">
+        <h1>Choose Your Trading Market</h1>
+        <p>Select the market you want XeroAI to automate.<br>You can add more markets later from your dashboard.</p>
+      </div>
+
+      <div class="step-market-grid reveal-step" role="radiogroup" aria-label="Trading market">
+
+        <button type="button" class="step-market-card" data-market="forex" role="radio" aria-checked="false" tabindex="0">
+          <span class="step-market-check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <div class="step-market-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-4 3 3 5-6 4 4"/><path d="M3 21h18"/></svg>
+          </div>
+          <h3>Forex</h3>
+          <p>Major, minor, and exotic currency pairs.</p>
+        </button>
+
+        <button type="button" class="step-market-card" data-market="crypto" role="radio" aria-checked="false" tabindex="-1">
+          <span class="step-market-check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <div class="step-market-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.3 8.2h3.6a2 2 0 0 1 0 4H9.3m0 0h3.9a2 2 0 0 1 0 4H9.3m0-8v9"/></svg>
+          </div>
+          <h3>Crypto</h3>
+          <p>Spot and derivatives across major exchanges.</p>
+        </button>
+
+        <button type="button" class="step-market-card" data-market="synthetic" role="radio" aria-checked="false" tabindex="-1">
+          <span class="step-market-check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <div class="step-market-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2-5 4-5 5 0s3 5 5 0 3-5 5 0 3 5 5 0"/></svg>
+          </div>
+          <h3>Synthetic Indices</h3>
+          <p>Continuous, simulated markets available 24/7.</p>
+        </button>
+
+      </div>
+
+      <div class="onboarding-step-actions reveal-step">
+        <button type="button" class="step-btn step-btn-primary step-continue" id="step1Continue" disabled aria-disabled="true" data-next="onboarding-step2.html">
+          <span class="step-btn-label">Continue</span>
+          <span class="step-btn-spinner" aria-hidden="true"></span>
+        </button>
+        <p class="onboarding-step-hint" id="step1Hint">Select a market to continue.</p>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
