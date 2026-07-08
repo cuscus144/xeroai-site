@@ -558,4 +558,54 @@
     }
   })();
 
+  /* ============ ONBOARDING STEP 2 (platform selection) ============ */
+  (function(){
+    const platformCards = document.querySelectorAll('.ob2-platform-card');
+    if(!platformCards.length) return;
+
+    const continueBtn = document.getElementById('ob2Continue');
+    const summaryList = document.getElementById('ob2SummaryList');
+
+    const checkIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+    function updateSummary(){
+      const selected = Array.from(platformCards).filter(c => c.classList.contains('selected'));
+
+      if(!continueBtn) return;
+      continueBtn.disabled = selected.length === 0;
+      continueBtn.setAttribute('aria-disabled', String(selected.length === 0));
+
+      if(!summaryList) return;
+      summaryList.innerHTML = '';
+
+      if(selected.length === 0){
+        const empty = document.createElement('span');
+        empty.className = 'ob2-summary-empty';
+        empty.textContent = 'No platform selected.';
+        summaryList.appendChild(empty);
+        return;
+      }
+
+      selected.forEach(card => {
+        const chip = document.createElement('span');
+        chip.className = 'ob2-summary-chip';
+        const h3 = card.querySelector('h3');
+        const label = card.dataset.platform || (h3 ? h3.textContent : '');
+        chip.innerHTML = checkIconSvg + label;
+        summaryList.appendChild(chip);
+      });
+    }
+
+    platformCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const nowSelected = !card.classList.contains('selected');
+        card.classList.toggle('selected', nowSelected);
+        card.setAttribute('aria-checked', String(nowSelected));
+        updateSummary();
+      });
+    });
+
+    updateSummary();
+  })();
+
 })();
