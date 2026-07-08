@@ -608,4 +608,83 @@
     updateSummary();
   })();
 
+  /* ============ ONBOARDING STEP 3 (connect trading account) ============ */
+  (function(){
+    const tabs = document.querySelectorAll('.ob2-tab');
+    if(!tabs.length) return;
+
+    const forms = document.querySelectorAll('.ob2-connect-form');
+    const continueBtn = document.getElementById('ob2Continue');
+    const hintEl = document.getElementById('ob2ConnectHint');
+    const connected = new Set();
+
+    /* ---- tab switching ---- */
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const platform = tab.dataset.platform;
+
+        tabs.forEach(t => {
+          const isThis = t === tab;
+          t.classList.toggle('active', isThis);
+          t.setAttribute('aria-selected', String(isThis));
+        });
+
+        forms.forEach(form => {
+          const isMatch = form.dataset.form === platform;
+          form.hidden = !isMatch;
+          if(isMatch){
+            form.style.animation = 'none';
+            // restart the fade-in animation for the newly shown form
+            void form.offsetWidth;
+            form.style.animation = '';
+          }
+        });
+      });
+    });
+
+    /* ---- demo connection simulation (no real API calls) ---- */
+    forms.forEach(form => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const btn = form.querySelector('.ob2-connect-btn');
+        const status = form.querySelector('.ob2-connect-status');
+        if(!btn || btn.classList.contains('is-loading')) return;
+
+        btn.classList.add('is-loading');
+        btn.setAttribute('aria-busy', 'true');
+        if(status){
+          status.textContent = 'Connecting...';
+          status.classList.remove('success');
+          status.classList.add('show');
+        }
+
+        const stepDelay = reduceMotion ? 120 : 850;
+
+        setTimeout(() => {
+          if(status) status.textContent = 'Authenticating...';
+
+          setTimeout(() => {
+            btn.classList.remove('is-loading');
+            btn.classList.add('is-success');
+            btn.removeAttribute('aria-busy');
+            if(status){
+              status.textContent = 'Connection Successful ✓';
+              status.classList.add('success');
+            }
+
+            connected.add(form.dataset.form);
+            if(continueBtn){
+              continueBtn.disabled = false;
+              continueBtn.setAttribute('aria-disabled', 'false');
+            }
+            if(hintEl){
+              hintEl.textContent = 'You can connect more accounts anytime from your dashboard.';
+            }
+          }, stepDelay);
+        }, stepDelay);
+      });
+    });
+  })();
+
 })();
