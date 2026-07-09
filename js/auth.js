@@ -687,4 +687,46 @@
     });
   })();
 
+  /* ============ ONBOARDING STEP 4 (setup complete) ============ */
+  (function(){
+    const successCheck = document.getElementById('ob2SuccessCheck');
+    if(!successCheck) return;
+
+    /* ---- draw-in animation for the success checkmark ---- */
+    const path = successCheck.querySelector('path');
+    if(path){
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = reduceMotion ? 0 : len;
+      if(!reduceMotion){
+        path.style.transition = 'stroke-dashoffset .8s cubic-bezier(.16,1,.3,1) .3s';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { path.style.strokeDashoffset = 0; });
+        });
+      }
+    }
+
+    /* ---- reveal AI status rows one after another ---- */
+    const statusRows = document.querySelectorAll('.ob2-status-row');
+    if(reduceMotion){
+      statusRows.forEach(row => row.classList.add('show'));
+    }else{
+      statusRows.forEach((row, i) => {
+        setTimeout(() => row.classList.add('show'), 700 + i * 450);
+      });
+    }
+
+    /* ---- go to dashboard ---- */
+    const goDashboardBtn = document.getElementById('ob2GoDashboard');
+    if(goDashboardBtn){
+      goDashboardBtn.addEventListener('click', () => {
+        if(goDashboardBtn.classList.contains('is-loading')) return;
+        const nextPage = goDashboardBtn.dataset.next || 'dashboard.html';
+        simulateSubmit(goDashboardBtn, () => {
+          window.location.href = nextPage;
+        });
+      });
+    }
+  })();
+
 })();
