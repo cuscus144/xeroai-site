@@ -1357,3 +1357,190 @@
     .ob2-tab::before{ display: none; }
     .ob2-connect-form{ animation: none !important; opacity: 1; transform: none; }
   }
+
+  /* ============ ONBOARDING STEP 4 (setup complete) ============ */
+
+  /* ---- success badge ---- */
+  .ob2-success-wrap{
+    position: relative;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ob2-success-ring{
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 1px solid rgba(74,222,128,0.35);
+    animation: ob2-success-ring-pulse 2.4s ease-out infinite;
+  }
+  .ob2-success-ring-2{ animation-delay: 1.2s; }
+
+  @keyframes ob2-success-ring-pulse{
+    0%{ opacity: .7; transform: scale(0.92); }
+    100%{ opacity: 0; transform: scale(1.35); }
+  }
+
+  .ob2-success-circle{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 25%, rgba(74,222,128,0.28), rgba(255,255,255,0.02) 70%);
+    border: 1px solid rgba(74,222,128,0.5);
+    box-shadow: 0 0 50px rgba(74,222,128,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green);
+  }
+  .ob2-success-circle svg{ width: 40px; height: 40px; }
+
+  .ob2-sparkle{
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--signal-2);
+    box-shadow: 0 0 8px var(--signal-2);
+    opacity: 0;
+    animation: ob2-sparkle-twinkle 2.6s ease-in-out infinite;
+  }
+  .ob2-sparkle-1{ top: 4%; left: 8%; animation-delay: .2s; }
+  .ob2-sparkle-2{ top: 78%; right: 4%; animation-delay: 1.1s; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+  .ob2-sparkle-3{ bottom: 6%; left: 14%; animation-delay: 1.9s; }
+
+  @keyframes ob2-sparkle-twinkle{
+    0%, 100%{ opacity: 0; transform: scale(0.6); }
+    50%{ opacity: 1; transform: scale(1.2); }
+  }
+
+  /* ---- generic info panel (reused for Setup Summary, What's Next, Status) ---- */
+  .ob2-panel{
+    padding: 24px 28px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .ob2-panel-title{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  /* ---- setup summary checklist ---- */
+  .ob2-recap-list{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .ob2-recap-list li{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .ob2-recap-check{
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74,222,128,0.15);
+    border: 1px solid rgba(74,222,128,0.4);
+    color: var(--green);
+  }
+  .ob2-recap-check svg{ width: 11px; height: 11px; }
+
+  /* ---- bullet list (What Happens Next) ---- */
+  .ob2-bullet-list{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .ob2-bullet-list li{
+    font-size: 13.5px;
+    color: var(--dim);
+    line-height: 1.6;
+    padding-left: 16px;
+    position: relative;
+  }
+  .ob2-bullet-list li::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--signal-2);
+  }
+
+  /* ---- AI status list (sequential reveal) ---- */
+  .ob2-status-list{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ob2-status-row{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13.5px;
+    color: var(--dim);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity .45s ease, transform .45s ease;
+  }
+  .ob2-status-row.show{ opacity: 1; transform: translateX(0); }
+
+  .ob2-status-dot{
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    flex-shrink: 0;
+    animation: pulse-dot-ob2 1.8s infinite;
+  }
+  @keyframes pulse-dot-ob2{
+    0%{ box-shadow: 0 0 0 0 rgba(74,222,128,0.55); }
+    70%{ box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+  }
+
+  /* ---- footer message ---- */
+  .ob2-footer-message{
+    text-align: center;
+    margin-top: 24px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--dim-2);
+  }
+
+  /* ============ RESPONSIVE: ONBOARDING STEP 4 ============ */
+  @media (max-width: 640px){
+    .ob2-success-wrap{ width: 80px; height: 80px; }
+    .ob2-success-circle svg{ width: 34px; height: 34px; }
+    .ob2-panel{ padding: 20px 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ob2-success-ring{ animation: none !important; opacity: 0; }
+    .ob2-sparkle{ animation: none !important; opacity: 0; }
+    .ob2-status-dot{ animation: none !important; }
+    .ob2-status-row{ transition: none !important; opacity: 1; transform: none; }
+  }
