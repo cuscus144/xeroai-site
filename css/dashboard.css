@@ -956,3 +956,438 @@
     .reveal-dash{ opacity: 1 !important; transform: none !important; }
     .notif-dot, .live-dot, .sys-dot{ animation: none !important; }
   }
+
+  /* ============ TRADING OVERVIEW (Module 2A) ============ */
+
+  .trading-overview{ margin-top: 32px; }
+
+  .section-heading{ margin-bottom: 20px; }
+  .section-heading h2{
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-size: clamp(20px, 2.2vw, 24px);
+    color: var(--ink);
+  }
+  .section-heading p{
+    margin-top: 5px;
+    font-size: 13.5px;
+    color: var(--dim);
+  }
+
+  /* ---- shared badge pill (new to dashboard.css) ---- */
+  .badge-pill{
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 13px;
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.04);
+    color: var(--dim);
+  }
+  .badge-pill .dot{ width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .badge-online{ color: var(--green); border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.08); }
+  .badge-online .dot{ background: var(--green); box-shadow: 0 0 6px var(--green); animation: notif-pulse 2s infinite; }
+
+  /* ---- welcome banner ---- */
+  .welcome-banner{
+    position: relative;
+    padding: 32px 36px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(94,142,255,0.12), rgba(255,255,255,0.02));
+    border: 1px solid rgba(94,142,255,0.25);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .welcome-banner-glow{
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(94,142,255,0.25), transparent 70%);
+    filter: blur(20px);
+    animation: banner-glow-drift 12s ease-in-out infinite;
+  }
+  @keyframes banner-glow-drift{
+    0%, 100%{ transform: translate(0,0); }
+    50%{ transform: translate(-20px, 20px); }
+  }
+  .welcome-banner-content{ position: relative; z-index: 1; max-width: 620px; }
+  .welcome-banner-content h3{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(20px, 2.4vw, 26px);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .welcome-banner-content h3 .accent{ color: var(--signal-2); }
+  .welcome-banner-content > p{
+    font-size: 13.5px;
+    color: var(--dim);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  /* ---- shared two-column overview row ---- */
+  .overview-row{
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+
+  /* ---- AI engine status card ---- */
+  .engine-status-card{
+    padding: 24px 26px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+    border: 1px solid var(--border);
+  }
+  .engine-status-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .engine-status-head h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+  .engine-status-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .engine-stat{ display: flex; flex-direction: column; gap: 4px; }
+  .engine-stat-label{
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--dim-2);
+  }
+  .engine-stat-value{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+  .engine-stat-good{ color: var(--green); }
+
+  /* ---- AI confidence ring ---- */
+  .confidence-card{
+    padding: 24px 26px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+  .confidence-ring-wrap{
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 12px;
+  }
+  .confidence-ring{
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .confidence-ring-track{
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 8;
+  }
+  .confidence-ring-fill{
+    fill: none;
+    stroke: var(--signal-2);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 326.7;
+    stroke-dashoffset: 326.7;
+    filter: drop-shadow(0 0 6px rgba(94,142,255,0.6));
+    transition: stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1);
+  }
+  .confidence-ring-text{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .confidence-value{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--ink);
+  }
+  .confidence-label{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--dim-2);
+    margin-bottom: 6px;
+  }
+  .confidence-subtitle{
+    font-size: 12.5px;
+    color: var(--dim);
+    line-height: 1.5;
+    max-width: 220px;
+  }
+
+  /* ---- trading statistics ---- */
+  .trading-stats-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .trading-stat-card{
+    padding: 20px 22px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color .3s ease, transform .2s ease;
+  }
+  .trading-stat-card:hover{ border-color: rgba(94,142,255,0.28); transform: translateY(-2px); }
+  .trading-stat-label{
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--dim-2);
+  }
+  .trading-stat-value{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--ink);
+  }
+  .trading-stat-profit{ color: var(--green); }
+
+  /* ---- quick actions ---- */
+  .quick-actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .quick-action-btn{
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 500;
+    overflow: hidden;
+    transition: border-color .25s ease, box-shadow .25s ease, transform .15s ease, background .25s ease;
+  }
+  .quick-action-btn:hover{
+    border-color: rgba(94,142,255,0.4);
+    box-shadow: 0 0 18px rgba(94,142,255,0.3);
+    transform: translateY(-2px);
+  }
+  .quick-action-btn:active{ transform: translateY(0) scale(0.97); }
+  .quick-action-btn.is-active{
+    border-color: rgba(74,222,128,0.45);
+    background: rgba(74,222,128,0.1);
+    color: var(--green);
+  }
+  .qa-icon{ font-size: 13px; }
+
+  .quick-actions-note{
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--dim-2);
+    margin-bottom: 26px;
+  }
+
+  /* ---- ripple (shared) ---- */
+  .rippleable{ position: relative; overflow: hidden; }
+  .dash-ripple{
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(94,142,255,0.35);
+    transform: scale(0);
+    opacity: 1;
+    pointer-events: none;
+    animation: dash-ripple-expand .6s ease-out forwards;
+  }
+  @keyframes dash-ripple-expand{
+    to{ transform: scale(1); opacity: 0; }
+  }
+
+  /* ---- secondary row: activity feed + daily summary ---- */
+  .overview-row-secondary{ grid-template-columns: 1fr 1fr; align-items: stretch; }
+
+  .activity-feed-card, .daily-summary-card{
+    padding: 22px 24px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+    border: 1px solid var(--border);
+  }
+  .activity-feed-card h3, .daily-summary-card h3, .performance-card h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .activity-feed-list{ list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .activity-item{
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: activity-item-in .5s ease forwards;
+  }
+  .activity-item:nth-child(1){ animation-delay: .1s; }
+  .activity-item:nth-child(2){ animation-delay: .3s; }
+  .activity-item:nth-child(3){ animation-delay: .5s; }
+  .activity-item:nth-child(4){ animation-delay: .7s; }
+  @keyframes activity-item-in{ to{ opacity: 1; transform: translateY(0); } }
+
+  .activity-time{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--signal-2);
+    flex-shrink: 0;
+    width: 40px;
+  }
+  .activity-text{ font-size: 13px; color: var(--dim); line-height: 1.5; }
+
+  .daily-summary-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--dim);
+  }
+  .daily-summary-row:last-of-type{ border-bottom: none; }
+  .daily-summary-value{ font-family: var(--font-display); font-weight: 600; color: var(--ink); }
+
+  .progress-bar-track{
+    height: 6px;
+    border-radius: 100px;
+    background: var(--border);
+    overflow: hidden;
+    margin: 12px 0 16px;
+  }
+  .progress-bar-fill{
+    height: 100%;
+    width: 0%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--signal), var(--signal-2));
+    box-shadow: 0 0 8px rgba(94,142,255,0.5);
+    transition: width 1.2s cubic-bezier(.16,1,.3,1);
+  }
+  .progress-bar-green{ background: linear-gradient(90deg, #2fae63, var(--green)); box-shadow: 0 0 8px rgba(74,222,128,0.5); }
+
+  .daily-summary-markets-label{
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--dim-2);
+    margin-bottom: 8px;
+  }
+  .market-chip-row{ display: flex; flex-wrap: wrap; gap: 8px; }
+  .market-chip{
+    font-size: 11.5px;
+    padding: 5px 11px;
+    border-radius: 100px;
+    background: var(--surface-strong);
+    border: 1px solid var(--border);
+    color: var(--dim);
+  }
+
+  /* ---- performance snapshot ---- */
+  .performance-card{
+    padding: 24px 26px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .performance-row{ margin-bottom: 14px; }
+  .performance-row:last-child{ margin-bottom: 0; }
+  .performance-row-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--dim);
+    margin-bottom: 8px;
+  }
+  .performance-row-head span:last-child{ font-family: var(--font-mono); color: var(--ink); font-weight: 600; }
+  .performance-row .progress-bar-track{ margin: 0; }
+
+  /* ---- information card ---- */
+  .info-card{
+    display: flex;
+    gap: 16px;
+    padding: 22px 24px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+  }
+  .info-card-icon{
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-strong);
+    border: 1px solid var(--border);
+    color: var(--signal-2);
+  }
+  .info-card-icon svg{ width: 19px; height: 19px; }
+  .info-card-content h4{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .info-card-content p{
+    font-size: 13px;
+    color: var(--dim);
+    line-height: 1.6;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .welcome-banner-glow{ animation: none !important; }
+    .activity-item{ animation: none !important; opacity: 1; transform: none; }
+    .badge-online .dot{ animation: none !important; }
+    .confidence-ring-fill{ transition: none !important; }
+    .progress-bar-fill{ transition: none !important; }
+  }
