@@ -266,4 +266,146 @@
     }
   })();
 
+  /* ============ TRADING OVERVIEW (Module 2A) ============ */
+  (function(){
+    const overview = document.getElementById('tradingOverview');
+    if(!overview) return;
+
+    const reduceMotionOverview = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const startDelay = reduceMotionOverview ? 0 : 500;
+
+    /* ---- animated number counters ---- */
+    function animateCounter(el, duration){
+      const target = parseFloat(el.dataset.target);
+      if(Number.isNaN(target)) return;
+      const prefix = el.dataset.prefix || '';
+      const decimals = el.dataset.decimals !== undefined ? parseInt(el.dataset.decimals, 10) : 0;
+
+      if(reduceMotionOverview){
+        el.textContent = prefix + target.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+        return;
+      }
+
+      const start = performance.now();
+      function frame(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = target * eased;
+        el.textContent = prefix + val.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+        if(p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    /* ---- AI confidence ring ---- */
+    function animateConfidenceRing(){
+      const ringFill = document.getElementById('confidenceRingFill');
+      const valueEl = document.getElementById('confidenceValue');
+      if(!ringFill) return;
+
+      const target = parseInt(ringFill.dataset.target, 10) || 0;
+      const circumference = 326.7;
+      const offset = circumference * (1 - target / 100);
+
+      if(reduceMotionOverview){
+        ringFill.style.strokeDashoffset = offset;
+        if(valueEl) valueEl.textContent = target + '%';
+        return;
+      }
+
+      requestAnimationFrame(() => {
+        ringFill.style.strokeDashoffset = offset;
+      });
+
+      if(valueEl){
+        const start = performance.now();
+        const duration = 1400;
+        function frame(now){
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          valueEl.textContent = Math.round(target * eased) + '%';
+          if(p < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      }
+    }
+
+    /* ---- horizontal progress bars ---- */
+    function animateProgressBars(){
+      document.querySelectorAll('[data-bar-target]').forEach(bar => {
+        const target = parseInt(bar.dataset.barTarget, 10) || 0;
+        requestAnimationFrame(() => { bar.style.width = target + '%'; });
+      });
+    }
+
+    setTimeout(() => {
+      overview.querySelectorAll('[data-counter]').forEach(el => animateCounter(el, 1300));
+      animateConfidenceRing();
+      animateProgressBars();
+    }, startDelay);
+
+    /* ---- ripple effect on quick action buttons ---- */
+    overview.querySelectorAll('.rippleable').forEach(btn => {
+      btn.addEventListener('pointerdown', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const ripple = document.createElement('span');
+        ripple.className = 'dash-ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        btn.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
+
+    /* ---- quick actions: simulated only, no backend ---- */
+    const noteEl = document.getElementById('quickActionsNote');
+    const startBtn = document.getElementById('qaStartAi');
+    const pauseBtn = document.getElementById('qaPauseAi');
+    const engineBadge = document.querySelector('.engine-status-head .badge-pill');
+    const bannerBadge = document.querySelector('.welcome-banner-content .badge-pill');
+
+    function flashNote(message){
+      if(!noteEl) return;
+      noteEl.textContent = message;
+      clearTimeout(flashNote._t);
+      flashNote._t = setTimeout(() => {
+        noteEl.textContent = 'These actions are simulated. No live trading is connected yet.';
+      }, 2600);
+    }
+
+    function setEngineState(online){
+      [engineBadge, bannerBadge].forEach(badge => {
+        if(!badge) return;
+        badge.classList.toggle('badge-online', online);
+        badge.innerHTML = online
+          ? '<span class="dot"></span>Online'
+          : '<span class="dot"></span>Paused';
+      });
+      if(startBtn) startBtn.classList.toggle('is-active', online);
+      if(pauseBtn) pauseBtn.classList.toggle('is-active', !online);
+    }
+
+    if(startBtn){
+      startBtn.addEventListener('click', () => {
+        setEngineState(true);
+        flashNote('AI Engine started (simulated).');
+      });
+    }
+    if(pauseBtn){
+      pauseBtn.addEventListener('click', () => {
+        setEngineState(false);
+        flashNote('AI Engine paused (simulated).');
+      });
+    }
+
+    overview.querySelectorAll('[data-action="analytics"]').forEach(btn => {
+      btn.addEventListener('click', () => flashNote('Analytics module is coming in a future update.'));
+    });
+    overview.querySelectorAll('[data-action="platforms"]').forEach(btn => {
+      btn.addEventListener('click', () => flashNote('Platform management is coming in a future update.'));
+    });
+  })();
+
 })();
