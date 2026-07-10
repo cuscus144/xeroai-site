@@ -170,6 +170,197 @@
 
         </section>
 
+        <!-- ============ TRADING OVERVIEW (Module 2A) ============ -->
+        <section class="trading-overview" id="tradingOverview">
+
+          <div class="section-heading reveal-dash">
+            <h2>Trading Overview</h2>
+            <p>Monitor the health of your XeroAI trading engine and your overall trading activity.</p>
+          </div>
+
+          <!-- Welcome banner -->
+          <div class="welcome-banner reveal-dash">
+            <div class="welcome-banner-glow" aria-hidden="true"></div>
+            <div class="welcome-banner-content">
+              <h3>Welcome back, <span class="accent">Trader</span></h3>
+              <p>Your AI trading assistant is online and continuously monitoring the markets for high-probability opportunities.</p>
+              <span class="badge-pill badge-online"><span class="dot"></span>AI Online</span>
+            </div>
+          </div>
+
+          <div class="overview-row">
+
+            <!-- AI Engine Status -->
+            <div class="engine-status-card reveal-dash">
+              <div class="engine-status-head">
+                <h3>AI Engine</h3>
+                <span class="badge-pill badge-online"><span class="dot"></span>Online</span>
+              </div>
+              <div class="engine-status-grid">
+                <div class="engine-stat">
+                  <span class="engine-stat-label">Trading Model</span>
+                  <span class="engine-stat-value">XeroAI V1</span>
+                </div>
+                <div class="engine-stat">
+                  <span class="engine-stat-label">Mode</span>
+                  <span class="engine-stat-value">Automatic</span>
+                </div>
+                <div class="engine-stat">
+                  <span class="engine-stat-label">Signal Quality</span>
+                  <span class="engine-stat-value engine-stat-good">Excellent</span>
+                </div>
+                <div class="engine-stat">
+                  <span class="engine-stat-label">Version</span>
+                  <span class="engine-stat-value">1.0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI Confidence ring -->
+            <div class="confidence-card reveal-dash">
+              <div class="confidence-ring-wrap">
+                <svg class="confidence-ring" viewBox="0 0 120 120" aria-hidden="true">
+                  <circle class="confidence-ring-track" cx="60" cy="60" r="52"/>
+                  <circle class="confidence-ring-fill" id="confidenceRingFill" cx="60" cy="60" r="52" data-target="94"/>
+                </svg>
+                <div class="confidence-ring-text">
+                  <span class="confidence-value" id="confidenceValue">0%</span>
+                </div>
+              </div>
+              <span class="confidence-label">AI Confidence</span>
+              <p class="confidence-subtitle">Market conditions currently favour high-quality trading opportunities.</p>
+            </div>
+
+          </div>
+
+          <!-- Trading statistics -->
+          <div class="trading-stats-grid">
+            <div class="trading-stat-card reveal-dash" style="--d:0ms">
+              <span class="trading-stat-label">Today's Trades</span>
+              <span class="trading-stat-value" data-counter data-target="12">0</span>
+            </div>
+            <div class="trading-stat-card reveal-dash" style="--d:80ms">
+              <span class="trading-stat-label">Winning Trades</span>
+              <span class="trading-stat-value" data-counter data-target="11">0</span>
+            </div>
+            <div class="trading-stat-card reveal-dash" style="--d:160ms">
+              <span class="trading-stat-label">Open Positions</span>
+              <span class="trading-stat-value" data-counter data-target="3">0</span>
+            </div>
+            <div class="trading-stat-card reveal-dash" style="--d:240ms">
+              <span class="trading-stat-label">Today's Profit</span>
+              <span class="trading-stat-value trading-stat-profit" data-counter data-target="42.50" data-prefix="+$" data-decimals="2">+$0.00</span>
+            </div>
+          </div>
+
+          <!-- Quick actions -->
+          <div class="quick-actions reveal-dash">
+            <button type="button" class="quick-action-btn rippleable" id="qaStartAi" data-action="start">
+              <span class="qa-icon">&#9654;</span>Start AI
+            </button>
+            <button type="button" class="quick-action-btn rippleable" id="qaPauseAi" data-action="pause">
+              <span class="qa-icon">&#10074;&#10074;</span>Pause AI
+            </button>
+            <button type="button" class="quick-action-btn rippleable" data-action="analytics">
+              <span class="qa-icon">&#128202;</span>View Analytics
+            </button>
+            <button type="button" class="quick-action-btn rippleable" data-action="platforms">
+              <span class="qa-icon">&#9881;</span>Manage Platforms
+            </button>
+          </div>
+          <p class="quick-actions-note" id="quickActionsNote">These actions are simulated. No live trading is connected yet.</p>
+
+          <div class="overview-row overview-row-secondary">
+
+            <!-- AI Activity Feed -->
+            <div class="activity-feed-card reveal-dash">
+              <h3>AI Activity Feed</h3>
+              <ul class="activity-feed-list">
+                <li class="activity-item"><span class="activity-time">09:12</span><span class="activity-text">AI detected strong bullish momentum.</span></li>
+                <li class="activity-item"><span class="activity-time">09:18</span><span class="activity-text">New trading opportunity identified.</span></li>
+                <li class="activity-item"><span class="activity-time">09:24</span><span class="activity-text">Market volatility increasing.</span></li>
+                <li class="activity-item"><span class="activity-time">09:31</span><span class="activity-text">Monitoring BTC/USDT.</span></li>
+              </ul>
+            </div>
+
+            <!-- Daily Summary -->
+            <div class="daily-summary-card reveal-dash">
+              <h3>Today's Summary</h3>
+              <div class="daily-summary-row">
+                <span class="daily-summary-label">Signals Generated</span>
+                <span class="daily-summary-value">24</span>
+              </div>
+              <div class="daily-summary-row">
+                <span class="daily-summary-label">Trades Executed</span>
+                <span class="daily-summary-value">12</span>
+              </div>
+              <div class="daily-summary-row">
+                <span class="daily-summary-label">Current Accuracy</span>
+                <span class="daily-summary-value">94%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" data-bar-target="94"></div>
+              </div>
+              <div class="daily-summary-markets">
+                <span class="daily-summary-markets-label">Markets Monitored</span>
+                <div class="market-chip-row">
+                  <span class="market-chip">Forex</span>
+                  <span class="market-chip">Synthetic Indices</span>
+                  <span class="market-chip">Crypto</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Performance snapshot -->
+          <div class="performance-card reveal-dash">
+            <h3>Performance Snapshot</h3>
+
+            <div class="performance-row">
+              <div class="performance-row-head">
+                <span>Trading Accuracy</span>
+                <span>94%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" data-bar-target="94"></div>
+              </div>
+            </div>
+
+            <div class="performance-row">
+              <div class="performance-row-head">
+                <span>AI Stability</span>
+                <span>99%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill progress-bar-green" data-bar-target="99"></div>
+              </div>
+            </div>
+
+            <div class="performance-row">
+              <div class="performance-row-head">
+                <span>System Health</span>
+                <span>100%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill progress-bar-green" data-bar-target="100"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Information card -->
+          <div class="info-card reveal-dash">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v.1M12 11v5"/></svg>
+            </div>
+            <div class="info-card-content">
+              <h4>XeroAI Intelligence</h4>
+              <p>XeroAI continuously scans supported markets using its proprietary AI engine. The system analyses trading conditions, evaluates market probability, and prepares high-confidence trading opportunities before execution.</p>
+            </div>
+          </div>
+
+        </section>
+
       </main>
 
       <footer class="app-footer">
