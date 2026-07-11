@@ -1391,3 +1391,266 @@
     .confidence-ring-fill{ transition: none !important; }
     .progress-bar-fill{ transition: none !important; }
   }
+
+  /* ============ CONNECTED PLATFORMS (Module 2B) ============ */
+
+  .connected-platforms{ margin-top: 32px; }
+
+  .platform-group{ margin-bottom: 24px; }
+
+  .platform-group-title{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dim-2);
+    margin-bottom: 14px;
+  }
+
+  .platform-cards-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .platform-conn-card{
+    position: relative;
+    padding: 22px 22px 20px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+    border: 1px solid var(--border);
+    transition: border-color .3s ease, box-shadow .3s ease, transform .2s ease;
+  }
+  .platform-conn-card:hover{
+    border-color: rgba(94,142,255,0.32);
+    box-shadow: 0 20px 44px -26px rgba(94,142,255,0.4);
+    transform: translateY(-3px);
+  }
+
+  .platform-conn-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .platform-conn-logo{
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-strong);
+    border: 1px solid var(--border-strong);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 10.5px;
+    color: var(--signal-2);
+  }
+
+  .platform-conn-card h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .platform-conn-tags{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 16px;
+  }
+  .platform-conn-tags li{
+    font-size: 12.5px;
+    color: var(--dim);
+    padding-left: 14px;
+    position: relative;
+  }
+  .platform-conn-tags li::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--dim-2);
+  }
+
+  .platform-conn-meta{
+    padding-top: 14px;
+    margin-bottom: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .platform-conn-meta-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+  }
+  .platform-conn-meta-row span:first-child{ color: var(--dim-2); }
+  .platform-conn-meta-row span:last-child{ color: var(--ink); font-weight: 500; }
+
+  .btn-manage-connection{
+    width: 100%;
+    padding: 11px 16px;
+    border-radius: 9px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 500;
+    transition: border-color .25s ease, box-shadow .25s ease, background .25s ease, transform .15s ease;
+  }
+  .btn-manage-connection:hover:not(:disabled){
+    border-color: rgba(94,142,255,0.4);
+    box-shadow: 0 0 16px rgba(94,142,255,0.3);
+    transform: translateY(-1px);
+  }
+  .btn-manage-connection:disabled{
+    opacity: .45;
+    cursor: not-allowed;
+  }
+
+  /* ---- add platform card ---- */
+  .add-platform-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    border-style: dashed;
+    border-color: var(--border-strong);
+    background: rgba(255,255,255,0.015);
+  }
+  .add-platform-card:hover{
+    border-color: rgba(94,142,255,0.35);
+    transform: none;
+    box-shadow: none;
+  }
+  .add-platform-plus{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-strong);
+    border: 1px solid var(--border);
+    color: var(--signal-2);
+    font-size: 22px;
+    font-weight: 300;
+    margin-bottom: 14px;
+  }
+  .add-platform-card h3{ margin-bottom: 6px; }
+  .add-platform-card p{
+    font-size: 12.5px;
+    color: var(--dim);
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+
+  .platform-action-note{
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--dim-2);
+    margin: 4px 0 24px;
+  }
+
+  /* ---- platform summary ---- */
+  .platform-summary-card{
+    padding: 24px 26px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+    border: 1px solid var(--border);
+  }
+  .platform-summary-card h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .platform-summary-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-bottom: 14px;
+  }
+  .summary-stat{ display: flex; flex-direction: column; gap: 4px; }
+  .summary-stat-value{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--ink);
+  }
+  .summary-stat-label{
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--dim-2);
+  }
+  .platform-summary-note{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--dim-2);
+  }
+
+  /* ---- connection health ---- */
+  .connection-health-card{
+    padding: 24px 26px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+    border: 1px solid var(--border);
+  }
+  .connection-health-card h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .health-row{
+    display: grid;
+    grid-template-columns: 60px 1fr 60px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .health-row:last-child{ margin-bottom: 0; }
+  .health-name{ font-size: 12.5px; color: var(--dim); }
+  .health-row .progress-bar-track{ margin: 0; }
+  .health-status{
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--green);
+    text-align: right;
+  }
+
+  /* ---- connection activity ---- */
+  .connection-activity-card{
+    padding: 22px 24px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+    border: 1px solid var(--border);
+    margin-top: 20px;
+  }
+  .connection-activity-card h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .platform-conn-card{ transform: none !important; }
+  }
