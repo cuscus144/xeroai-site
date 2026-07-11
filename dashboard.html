@@ -567,6 +567,170 @@
 
         </section>
 
+        <!-- ============ LIVE TRADING MONITOR (Module 2C) ============ -->
+        <section class="trading-monitor" id="tradingMonitor">
+
+          <div class="section-heading reveal-dash">
+            <h2>Live Trading Monitor</h2>
+            <p>Monitor active trading sessions and market activity.</p>
+          </div>
+
+          <!-- Active Trading Sessions -->
+          <div class="monitor-table-card reveal-dash">
+            <h3>Active Trading Sessions</h3>
+            <div class="monitor-table-scroll">
+              <table class="monitor-table">
+                <thead>
+                  <tr>
+                    <th>Platform</th>
+                    <th>Market</th>
+                    <th>Strategy</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Deriv</td>
+                    <td>Volatility 75</td>
+                    <td>XeroAI V1</td>
+                    <td><span class="badge-pill badge-running"><span class="dot"></span>Running</span></td>
+                    <td class="mono-cell">02:14:36</td>
+                  </tr>
+                  <tr>
+                    <td>Binance</td>
+                    <td>BTC/USDT</td>
+                    <td>Trend Following</td>
+                    <td><span class="badge-pill badge-monitoring"><span class="dot"></span>Monitoring</span></td>
+                    <td class="mono-cell">01:03:18</td>
+                  </tr>
+                  <tr>
+                    <td>Exness</td>
+                    <td>EUR/USD</td>
+                    <td>Scalping</td>
+                    <td><span class="badge-pill badge-running"><span class="dot"></span>Running</span></td>
+                    <td class="mono-cell">00:45:10</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Live Market Watch -->
+          <div class="market-watch-group">
+            <h4 class="platform-group-title">Live Market Watch</h4>
+            <div class="market-watch-grid">
+
+              <div class="market-watch-card reveal-dash">
+                <div class="market-watch-top">
+                  <h3>Volatility 75</h3>
+                  <span class="live-pulse-dot"></span>
+                </div>
+                <div class="market-watch-row"><span>Trend</span><span class="trend-up">&#8593; Bullish</span></div>
+                <div class="market-watch-row"><span>AI Confidence</span><span>91%</span></div>
+                <div class="market-watch-row"><span>Status</span><span>Monitoring</span></div>
+              </div>
+
+              <div class="market-watch-card reveal-dash">
+                <div class="market-watch-top">
+                  <h3>Volatility 100</h3>
+                  <span class="live-pulse-dot"></span>
+                </div>
+                <div class="market-watch-row"><span>Trend</span><span class="trend-up">&#8593; Bullish</span></div>
+                <div class="market-watch-row"><span>AI Confidence</span><span>88%</span></div>
+                <div class="market-watch-row"><span>Status</span><span>Monitoring</span></div>
+              </div>
+
+              <div class="market-watch-card reveal-dash">
+                <div class="market-watch-top">
+                  <h3>EUR/USD</h3>
+                  <span class="live-pulse-dot"></span>
+                </div>
+                <div class="market-watch-row"><span>Trend</span><span class="trend-neutral">&#8594; Neutral</span></div>
+                <div class="market-watch-row"><span>AI Confidence</span><span>74%</span></div>
+                <div class="market-watch-row"><span>Status</span><span>Monitoring</span></div>
+              </div>
+
+              <div class="market-watch-card reveal-dash">
+                <div class="market-watch-top">
+                  <h3>GBP/USD</h3>
+                  <span class="live-pulse-dot"></span>
+                </div>
+                <div class="market-watch-row"><span>Trend</span><span class="trend-down">&#8595; Bearish</span></div>
+                <div class="market-watch-row"><span>AI Confidence</span><span>69%</span></div>
+                <div class="market-watch-row"><span>Status</span><span>Monitoring</span></div>
+              </div>
+
+              <div class="market-watch-card reveal-dash">
+                <div class="market-watch-top">
+                  <h3>BTC/USDT</h3>
+                  <span class="live-pulse-dot"></span>
+                </div>
+                <div class="market-watch-row"><span>Trend</span><span class="trend-up">&#8593; Bullish</span></div>
+                <div class="market-watch-row"><span>AI Confidence</span><span>93%</span></div>
+                <div class="market-watch-row"><span>Status</span><span>Monitoring</span></div>
+              </div>
+
+              <div class="market-watch-card reveal-dash">
+                <div class="market-watch-top">
+                  <h3>ETH/USDT</h3>
+                  <span class="live-pulse-dot"></span>
+                </div>
+                <div class="market-watch-row"><span>Trend</span><span class="trend-up">&#8593; Bullish</span></div>
+                <div class="market-watch-row"><span>AI Confidence</span><span>85%</span></div>
+                <div class="market-watch-row"><span>Status</span><span>Monitoring</span></div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Open Positions -->
+          <div class="monitor-table-card reveal-dash">
+            <h3>Open Positions</h3>
+            <div class="monitor-table-scroll">
+              <table class="monitor-table">
+                <thead>
+                  <tr>
+                    <th>Platform</th>
+                    <th>Asset</th>
+                    <th>Direction</th>
+                    <th>Entry Price</th>
+                    <th>Current Price</th>
+                    <th>Profit/Loss</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Deriv</td>
+                    <td>Volatility 75 Index</td>
+                    <td><span class="direction-badge direction-buy">Buy</span></td>
+                    <td class="mono-cell">245.32</td>
+                    <td class="mono-cell">248.91</td>
+                    <td class="mono-cell pnl-positive">+$12.40</td>
+                  </tr>
+                  <tr>
+                    <td>Binance</td>
+                    <td>BTC/USDT</td>
+                    <td><span class="direction-badge direction-buy">Long</span></td>
+                    <td class="mono-cell">62,400.00</td>
+                    <td class="mono-cell">63,180.50</td>
+                    <td class="mono-cell pnl-positive">+$78.05</td>
+                  </tr>
+                  <tr>
+                    <td>Exness</td>
+                    <td>EUR/USD</td>
+                    <td><span class="direction-badge direction-sell">Sell</span></td>
+                    <td class="mono-cell">1.0850</td>
+                    <td class="mono-cell">1.0862</td>
+                    <td class="mono-cell pnl-negative">&minus;$9.60</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
       </main>
 
       <footer class="app-footer">
