@@ -408,4 +408,54 @@
     });
   })();
 
+  /* ============ CONNECTED PLATFORMS (Module 2B) ============ */
+  (function(){
+    const section = document.getElementById('connectedPlatforms');
+    if(!section) return;
+
+    const reduceMotionPlatforms = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- animate the Platform Summary counters ---- */
+    function animateSummaryCounter(el, duration){
+      const target = parseFloat(el.dataset.target);
+      if(Number.isNaN(target)) return;
+
+      if(reduceMotionPlatforms){
+        el.textContent = target;
+        return;
+      }
+
+      const start = performance.now();
+      function frame(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased);
+        if(p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    setTimeout(() => {
+      section.querySelectorAll('[data-counter]').forEach(el => animateSummaryCounter(el, 1200));
+    }, reduceMotionPlatforms ? 0 : 500);
+
+    /* ---- "Manage Connection" buttons: simulated only, no backend ---- */
+    const noteEl = document.getElementById('platformActionNote');
+    function flashPlatformNote(message){
+      if(!noteEl) return;
+      noteEl.textContent = message;
+      clearTimeout(flashPlatformNote._t);
+      flashPlatformNote._t = setTimeout(() => {
+        noteEl.textContent = 'Select "Manage Connection" to view platform details.';
+      }, 2600);
+    }
+
+    section.querySelectorAll('.btn-manage-connection:not(:disabled)').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = btn.dataset.platformName || 'This platform';
+        flashPlatformNote(name + ' connection management is coming in a future update.');
+      });
+    });
+  })();
+
 })();
