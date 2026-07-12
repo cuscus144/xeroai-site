@@ -458,4 +458,72 @@
     });
   })();
 
+  /* ============ AI DECISION CENTER & TRADE HISTORY (Module 2C.2) ============ */
+  (function(){
+    const section = document.getElementById('aiDecisionCenter');
+    if(!section) return;
+
+    const reduceMotionDecisions = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- animate Trade Execution Monitor counters ---- */
+    function animateExecutionStat(el, duration){
+      const target = parseFloat(el.dataset.target);
+      if(Number.isNaN(target)) return;
+      const suffix = el.dataset.suffix || '';
+
+      if(reduceMotionDecisions){
+        el.textContent = target + suffix;
+        return;
+      }
+
+      const start = performance.now();
+      function frame(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if(p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    setTimeout(() => {
+      section.querySelectorAll('.execution-stat-value[data-counter]').forEach(el => animateExecutionStat(el, 1200));
+    }, reduceMotionDecisions ? 0 : 500);
+  })();
+
+  /* ============ SYSTEM HEALTH & NOTIFICATIONS (Module 2D) ============ */
+  (function(){
+    const section = document.getElementById('systemHealthSection');
+    if(!section) return;
+
+    const reduceMotionHealth = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- animate Platform Status Summary counters ---- */
+    function animateHealthCounter(el, duration){
+      const target = parseFloat(el.dataset.target);
+      if(Number.isNaN(target)) return;
+      const suffix = el.dataset.suffix || '';
+      const decimals = el.dataset.decimals !== undefined ? parseInt(el.dataset.decimals, 10) : 0;
+
+      if(reduceMotionHealth){
+        el.textContent = target.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+        return;
+      }
+
+      const start = performance.now();
+      function frame(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = target * eased;
+        el.textContent = val.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+        if(p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    setTimeout(() => {
+      section.querySelectorAll('.summary-stat-value[data-counter]').forEach(el => animateHealthCounter(el, 1200));
+    }, reduceMotionHealth ? 0 : 500);
+  })();
+
 })();
