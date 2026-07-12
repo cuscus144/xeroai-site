@@ -526,4 +526,175 @@
     }, reduceMotionHealth ? 0 : 500);
   })();
 
+  /* ============ PERFORMANCE OVERVIEW (Module 3A) ============ */
+  (function(){
+    const section = document.getElementById('performanceOverview');
+    if(!section) return;
+
+    const reduceMotionPerf = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- animate Performance Summary counters ---- */
+    function animatePerfCounter(el, duration){
+      const target = parseFloat(el.dataset.target);
+      if(Number.isNaN(target)) return;
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const decimals = el.dataset.decimals !== undefined ? parseInt(el.dataset.decimals, 10) : 0;
+
+      if(reduceMotionPerf){
+        el.textContent = prefix + target.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+        return;
+      }
+
+      const start = performance.now();
+      function frame(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = target * eased;
+        el.textContent = prefix + val.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+        if(p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    setTimeout(() => {
+      section.querySelectorAll('.trading-stat-value[data-counter]').forEach(el => animatePerfCounter(el, 1300));
+    }, reduceMotionPerf ? 0 : 500);
+
+    /* ---- weekly performance chart (pure canvas, no libraries) ---- */
+    (function(){
+      const canvas = document.getElementById('weeklyPerformanceChart');
+      if(!canvas || !canvas.getContext) return;
+
+      const ctx = canvas.getContext('2d');
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      const values = [120, 85, 620, -40, 310, 150, -25];
+      let progress = reduceMotionPerf ? 1 : 0;
+
+      function resize(){
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        draw(progress);
+      }
+
+      function draw(p){
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        ctx.clearRect(0, 0, w, h);
+
+        const paddingBottom = 24;
+        const paddingTop = 10;
+        const usableHeight = h - paddingBottom - paddingTop;
+        const maxAbs = Math.max(...values.map(v => Math.abs(v)));
+        const zeroY = paddingTop + usableHeight * (maxAbs / (maxAbs * 2));
+
+        const barCount = values.length;
+        const gap = 18;
+        const barWidth = (w - gap * (barCount + 1)) / barCount;
+
+        values.forEach((val, i) => {
+          const x = gap + i * (barWidth + gap);
+          const barHeight = (Math.abs(val) / (maxAbs * 2)) * usableHeight * p;
+          const isPositive = val >= 0;
+
+          ctx.fillStyle = isPositive ? 'rgba(74,222,128,0.85)' : 'rgba(248,113,113,0.85)';
+          if(isPositive){
+            ctx.fillRect(x, zeroY - barHeight, barWidth, barHeight);
+          }else{
+            ctx.fillRect(x, zeroY, barWidth, barHeight);
+          }
+
+          ctx.fillStyle = 'rgba(148,154,170,0.8)';
+          ctx.font = '11px "JetBrains Mono", monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText(days[i], x + barWidth / 2, h - 6);
+        });
+
+        // zero baseline
+        ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, zeroY);
+        ctx.lineTo(w, zeroY);
+        ctx.stroke();
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      if(!reduceMotionPerf){
+        const animStart = performance.now();
+        const animDuration = 1200;
+        function frame(now){
+          progress = Math.min((now - animStart) / animDuration, 1);
+          draw(1 - Math.pow(1 - progress, 3));
+          if(progress < 1) requestAnimationFrame(frame);
+        }
+        setTimeout(() => requestAnimationFrame(frame), 400);
+      }
+    })();
+
+    /* ---- trading activity heatmap (7 days x 24 hours, demo data) ---- */
+    (function(){
+      const grid = document.getElementById('heatmapGrid');
+      if(!grid) return;
+
+      const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      const hourMarks = [0, 4, 8, 12, 16, 20];
+
+      function activityValue(day, hour){
+        const hourFactor = Math.exp(-Math.pow(hour - 14, 2) / 50);
+        const weekdayFactor = day < 5 ? 1 : 0.55;
+        return Math.min(1, hourFactor * weekdayFactor * 1.1 + 0.05);
+      }
+
+      const frag = document.createDocumentFragment();
+
+      // corner + hour header row
+      const corner = document.createElement('div');
+      corner.className = 'heatmap-corner';
+      frag.appendChild(corner);
+
+      for(let hour = 0; hour < 24; hour++){
+        const label = document.createElement('div');
+        label.className = 'heatmap-hour-label';
+        label.textContent = hourMarks.includes(hour) ? hour + ':00' : '';
+        frag.appendChild(label);
+      }
+
+      // day rows
+      dayLabels.forEach((day, dayIndex) => {
+        const dayLabel = document.createElement('div');
+        dayLabel.className = 'heatmap-day-label';
+        dayLabel.textContent = day;
+        frag.appendChild(dayLabel);
+
+        for(let hour = 0; hour < 24; hour++){
+          const value = activityValue(dayIndex, hour);
+          const cell = document.createElement('div');
+          cell.className = 'heatmap-cell';
+          cell.style.setProperty('--intensity', value.toFixed(2));
+          cell.title = day + ' ' + hour + ':00 — activity ' + Math.round(value * 100) + '%';
+          frag.appendChild(cell);
+        }
+      });
+
+      grid.appendChild(frag);
+
+      const cells = grid.querySelectorAll('.heatmap-cell');
+      if(reduceMotionPerf){
+        cells.forEach(c => c.classList.add('in-view'));
+      }else{
+        cells.forEach((c, i) => {
+          setTimeout(() => c.classList.add('in-view'), 300 + i * 4);
+        });
+      }
+    })();
+  })();
+
 })();
