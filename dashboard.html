@@ -1035,6 +1035,148 @@
 
         </section>
 
+        <!-- ============ PERFORMANCE OVERVIEW (Module 3A) ============ -->
+        <section class="performance-overview" id="performanceOverview">
+
+          <div class="section-heading reveal-dash">
+            <h2>Performance Analytics</h2>
+            <p>Track your trading performance and AI effectiveness through detailed analytics.</p>
+          </div>
+
+          <!-- Performance Summary Cards -->
+          <div class="performance-summary-grid">
+            <div class="trading-stat-card reveal-dash" style="--d:0ms">
+              <span class="trading-stat-label">Total Trades</span>
+              <span class="trading-stat-value" data-counter data-target="245">0</span>
+            </div>
+            <div class="trading-stat-card reveal-dash" style="--d:60ms">
+              <span class="trading-stat-label">Winning Trades</span>
+              <span class="trading-stat-value" data-counter data-target="218">0</span>
+            </div>
+            <div class="trading-stat-card reveal-dash" style="--d:120ms">
+              <span class="trading-stat-label">Losing Trades</span>
+              <span class="trading-stat-value" data-counter data-target="27">0</span>
+            </div>
+            <div class="trading-stat-card reveal-dash" style="--d:180ms">
+              <span class="trading-stat-label">Win Rate</span>
+              <span class="trading-stat-value" data-counter data-target="89" data-suffix="%">0</span>
+            </div>
+            <div class="trading-stat-card reveal-dash" style="--d:240ms">
+              <span class="trading-stat-label">Net Profit</span>
+              <span class="trading-stat-value trading-stat-profit" data-counter data-target="4850" data-prefix="+$" data-decimals="2">+$0.00</span>
+            </div>
+            <div class="trading-stat-card reveal-dash" style="--d:300ms">
+              <span class="trading-stat-label">Average AI Confidence</span>
+              <span class="trading-stat-value" data-counter data-target="94" data-suffix="%">0</span>
+            </div>
+          </div>
+
+          <div class="overview-row overview-row-secondary">
+
+            <!-- Weekly Performance Chart -->
+            <div class="chart-card reveal-dash">
+              <h3>Weekly Performance</h3>
+              <div class="chart-canvas-wrap">
+                <canvas id="weeklyPerformanceChart" aria-label="Weekly profit and loss chart" role="img"></canvas>
+              </div>
+              <div class="chart-legend">
+                <span><i class="legend-swatch legend-swatch-green"></i>Profit</span>
+                <span><i class="legend-swatch legend-swatch-red"></i>Loss</span>
+              </div>
+            </div>
+
+            <!-- Monthly Performance Snapshot -->
+            <div class="daily-summary-card reveal-dash">
+              <h3>Monthly Performance Snapshot</h3>
+              <div class="daily-summary-row">
+                <span class="daily-summary-label">Best Trading Day</span>
+                <span class="daily-summary-value">Wednesday</span>
+              </div>
+              <div class="daily-summary-row">
+                <span class="daily-summary-label">Highest Daily Profit</span>
+                <span class="daily-summary-value pnl-positive">+$620</span>
+              </div>
+              <div class="daily-summary-row">
+                <span class="daily-summary-label">Average Daily Profit</span>
+                <span class="daily-summary-value pnl-positive">+$315</span>
+              </div>
+              <div class="daily-summary-row">
+                <span class="daily-summary-label">Longest Winning Streak</span>
+                <span class="daily-summary-value">18 Trades</span>
+              </div>
+              <div class="daily-summary-row">
+                <span class="daily-summary-label">Current Winning Streak</span>
+                <span class="daily-summary-value">7 Trades</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Trading Distribution -->
+          <div class="performance-card reveal-dash">
+            <h3>Trading Distribution</h3>
+
+            <div class="performance-row">
+              <div class="performance-row-head">
+                <span>Forex</span>
+                <span>40%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" data-bar-target="40"></div>
+              </div>
+            </div>
+
+            <div class="performance-row">
+              <div class="performance-row-head">
+                <span>Synthetic Indices</span>
+                <span>35%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" data-bar-target="35"></div>
+              </div>
+            </div>
+
+            <div class="performance-row">
+              <div class="performance-row-head">
+                <span>Cryptocurrency</span>
+                <span>25%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" data-bar-target="25"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trading Activity Heatmap -->
+          <div class="heatmap-card reveal-dash">
+            <div class="heatmap-head">
+              <h3>Trading Activity Heatmap</h3>
+              <div class="heatmap-legend">
+                <span>Less</span>
+                <span class="heatmap-legend-gradient"></span>
+                <span>More</span>
+              </div>
+            </div>
+            <div class="heatmap-scroll">
+              <div class="heatmap-grid" id="heatmapGrid" role="img" aria-label="Trading activity heatmap by day and hour"></div>
+            </div>
+          </div>
+
+          <!-- Performance Insights -->
+          <div class="info-card reveal-dash">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V11M10 20V4M16 20v-7M22 20V13"/></svg>
+            </div>
+            <div class="info-card-content">
+              <h4>Performance Insights</h4>
+              <p>The AI trading engine has maintained a consistently high win rate while identifying favorable opportunities across Forex, Synthetic Indices, and Cryptocurrency markets. Current performance indicates stable execution with excellent trade quality.</p>
+            </div>
+          </div>
+
+          <p class="demo-footer-note">Performance statistics currently use demonstration data. Real trading analytics will become available after connecting the XeroAI backend and live trading engine.</p>
+
+        </section>
+
       </main>
 
       <footer class="app-footer">
