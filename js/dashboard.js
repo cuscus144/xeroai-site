@@ -697,4 +697,230 @@
     })();
   })();
 
+  /* ============ PROFIT ANALYTICS (Module 3B) ============ */
+  (function(){
+    const section = document.getElementById('profitAnalytics');
+    if(!section) return;
+
+    const reduceMotionProfit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- animate Profit Summary counters ---- */
+    function animateProfitCounter(el, duration){
+      const target = parseFloat(el.dataset.target);
+      if(Number.isNaN(target)) return;
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const decimals = el.dataset.decimals !== undefined ? parseInt(el.dataset.decimals, 10) : 0;
+
+      if(reduceMotionProfit){
+        el.textContent = prefix + target.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+        return;
+      }
+
+      const start = performance.now();
+      function frame(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = target * eased;
+        el.textContent = prefix + val.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+        if(p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    setTimeout(() => {
+      section.querySelectorAll('.trading-stat-value[data-counter]').forEach(el => animateProfitCounter(el, 1300));
+    }, reduceMotionProfit ? 0 : 500);
+
+    /* ---- monthly profit trend (canvas line chart, no libraries) ---- */
+    (function(){
+      const canvas = document.getElementById('monthlyProfitChart');
+      if(!canvas || !canvas.getContext) return;
+
+      const ctx = canvas.getContext('2d');
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const values = [1200, 1450, 1100, 1600, 1800, 2050, 1950, 2200, 2400, 2150, 2600, 2875];
+      const maxVal = Math.max(...values);
+      const minVal = Math.min(...values);
+
+      function resize(){
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        draw(reduceMotionProfit ? 1 : lastProgress);
+      }
+
+      function pointAt(i, w, h, paddingTop, paddingBottom, paddingSide){
+        const usableW = w - paddingSide * 2;
+        const usableH = h - paddingTop - paddingBottom;
+        const x = paddingSide + (usableW / (values.length - 1)) * i;
+        const norm = (values[i] - minVal) / (maxVal - minVal || 1);
+        const y = paddingTop + usableH * (1 - norm);
+        return { x, y };
+      }
+
+      let lastProgress = reduceMotionProfit ? 1 : 0;
+
+      function draw(progress){
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        ctx.clearRect(0, 0, w, h);
+
+        const paddingTop = 14;
+        const paddingBottom = 24;
+        const paddingSide = 6;
+
+        // horizontal gridlines
+        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+        ctx.lineWidth = 1;
+        for(let g = 0; g <= 3; g++){
+          const y = paddingTop + ((h - paddingTop - paddingBottom) / 3) * g;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(w, y);
+          ctx.stroke();
+        }
+
+        const visibleCount = Math.max(1, Math.floor(progress * (values.length - 1)) + 1);
+        const points = [];
+        for(let i = 0; i < visibleCount; i++){
+          points.push(pointAt(i, w, h, paddingTop, paddingBottom, paddingSide));
+        }
+
+        if(points.length > 1){
+          // glow fill under the line
+          const gradient = ctx.createLinearGradient(0, paddingTop, 0, h - paddingBottom);
+          gradient.addColorStop(0, 'rgba(94,142,255,0.22)');
+          gradient.addColorStop(1, 'rgba(94,142,255,0)');
+
+          ctx.beginPath();
+          ctx.moveTo(points[0].x, h - paddingBottom);
+          points.forEach(p => ctx.lineTo(p.x, p.y));
+          ctx.lineTo(points[points.length - 1].x, h - paddingBottom);
+          ctx.closePath();
+          ctx.fillStyle = gradient;
+          ctx.fill();
+
+          // line
+          ctx.beginPath();
+          ctx.moveTo(points[0].x, points[0].y);
+          points.forEach(p => ctx.lineTo(p.x, p.y));
+          ctx.strokeStyle = 'rgba(94,142,255,0.95)';
+          ctx.lineWidth = 2.2;
+          ctx.lineJoin = 'round';
+          ctx.lineCap = 'round';
+          ctx.shadowColor = 'rgba(94,142,255,0.5)';
+          ctx.shadowBlur = 8;
+          ctx.stroke();
+          ctx.shadowBlur = 0;
+
+          // end point marker
+          const last = points[points.length - 1];
+          ctx.beginPath();
+          ctx.arc(last.x, last.y, 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+        }
+
+        // month labels
+        ctx.fillStyle = 'rgba(148,154,170,0.8)';
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        months.forEach((m, i) => {
+          if(i % 2 === 0){
+            const p = pointAt(i, w, h, paddingTop, paddingBottom, paddingSide);
+            ctx.fillText(m, p.x, h - 6);
+          }
+        });
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      if(!reduceMotionProfit){
+        const animStart = performance.now();
+        const animDuration = 1600;
+        function frame(now){
+          lastProgress = Math.min((now - animStart) / animDuration, 1);
+          draw(lastProgress);
+          if(lastProgress < 1) requestAnimationFrame(frame);
+        }
+        setTimeout(() => requestAnimationFrame(frame), 400);
+      }
+    })();
+
+    /* ---- profit distribution doughnut (canvas, no libraries) ---- */
+    (function(){
+      const canvas = document.getElementById('profitDoughnutChart');
+      if(!canvas || !canvas.getContext) return;
+
+      const ctx = canvas.getContext('2d');
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const segments = [
+        { value: 45, color: 'rgba(217,166,92,0.9)' },
+        { value: 30, color: 'rgba(94,142,255,0.9)' },
+        { value: 25, color: 'rgba(74,222,128,0.9)' }
+      ];
+      const total = segments.reduce((sum, s) => sum + s.value, 0);
+
+      function resize(){
+        const rect = canvas.parentElement.getBoundingClientRect();
+        const size = Math.min(rect.width, rect.height);
+        canvas.width = size * dpr;
+        canvas.height = size * dpr;
+        canvas.style.width = size + 'px';
+        canvas.style.height = size + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        draw(reduceMotionProfit ? 1 : 0);
+      }
+
+      function draw(progress){
+        const size = canvas.clientWidth;
+        const cx = size / 2;
+        const cy = size / 2;
+        const outerRadius = size / 2 - 4;
+        const innerRadius = outerRadius * 0.62;
+
+        ctx.clearRect(0, 0, size, size);
+
+        let startAngle = -Math.PI / 2;
+        const sweepTotal = Math.PI * 2 * progress;
+        let drawnAngle = 0;
+
+        segments.forEach(seg => {
+          const segAngle = (seg.value / total) * Math.PI * 2;
+          const thisSweep = Math.min(segAngle, Math.max(0, sweepTotal - drawnAngle));
+          if(thisSweep > 0){
+            ctx.beginPath();
+            ctx.arc(cx, cy, outerRadius, startAngle, startAngle + thisSweep);
+            ctx.arc(cx, cy, innerRadius, startAngle + thisSweep, startAngle, true);
+            ctx.closePath();
+            ctx.fillStyle = seg.color;
+            ctx.fill();
+          }
+          startAngle += segAngle;
+          drawnAngle += segAngle;
+        });
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      if(!reduceMotionProfit){
+        const animStart = performance.now();
+        const animDuration = 1300;
+        function frame(now){
+          const p = Math.min((now - animStart) / animDuration, 1);
+          draw(1 - Math.pow(1 - p, 3));
+          if(p < 1) requestAnimationFrame(frame);
+        }
+        setTimeout(() => requestAnimationFrame(frame), 400);
+      }
+    })();
+  })();
+
 })();
