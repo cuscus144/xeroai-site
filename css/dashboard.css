@@ -2317,3 +2317,102 @@
   .decision-ring-buy{ stroke: var(--green); filter: drop-shadow(0 0 6px rgba(74,222,128,0.6)); }
   .decision-ring-sell{ stroke: var(--red); filter: drop-shadow(0 0 6px rgba(248,113,113,0.6)); }
   .decision-ring-hold{ stroke: var(--gold); filter: drop-shadow(0 0 6px rgba(217,166,92,0.6)); }
+
+  /* ============ AI TIMELINE & RECOMMENDATIONS (Module 3E) ============ */
+
+  .ai-timeline-section{ margin-top: 32px; }
+
+  /* ---- recent AI timeline ---- */
+  .ai-timeline-card{
+    padding: 22px 24px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+    border: 1px solid var(--border);
+  }
+  .ai-timeline-card h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+
+  .ai-timeline{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ai-timeline-item{
+    display: flex;
+    gap: 14px;
+    padding-bottom: 22px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: ai-timeline-item-in .5s ease forwards;
+  }
+  .ai-timeline-item:last-child{ padding-bottom: 0; }
+  .ai-timeline-item:nth-child(1){ animation-delay: .1s; }
+  .ai-timeline-item:nth-child(2){ animation-delay: .28s; }
+  .ai-timeline-item:nth-child(3){ animation-delay: .46s; }
+  .ai-timeline-item:nth-child(4){ animation-delay: .64s; }
+
+  @keyframes ai-timeline-item-in{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  .ai-timeline-marker{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 12px;
+    padding-top: 3px;
+  }
+  .ai-timeline-dot{
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 8px var(--signal);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .ai-timeline-item:not(:last-child) .ai-timeline-marker::after{
+    content: "";
+    position: absolute;
+    top: 14px;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: var(--border);
+  }
+
+  .ai-timeline-content{ flex: 1; min-width: 0; }
+  .ai-timeline-top{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .ai-timeline-time{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--dim-2);
+    min-width: 42px;
+  }
+  .ai-timeline-confidence{
+    font-size: 12px;
+    padding: 4px 11px;
+  }
+  .ai-timeline-meta{
+    font-size: 13px;
+    color: var(--dim);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ai-timeline-item{ animation: none !important; opacity: 1; transform: none; }
+  }
