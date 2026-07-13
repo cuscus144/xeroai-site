@@ -923,4 +923,39 @@
     })();
   })();
 
+  /* ============ AI PERFORMANCE OVERVIEW (Module 3C) ============ */
+  (function(){
+    const section = document.getElementById('aiPerformanceOverview');
+    if(!section) return;
+
+    const reduceMotionAiPerf = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- animate AI Performance Card counters ---- */
+    function animateAiPerfCounter(el, duration){
+      const target = parseFloat(el.dataset.target);
+      if(Number.isNaN(target)) return;
+      const suffix = el.dataset.suffix || '';
+      const decimals = el.dataset.decimals !== undefined ? parseInt(el.dataset.decimals, 10) : 0;
+
+      if(reduceMotionAiPerf){
+        el.textContent = target.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+        return;
+      }
+
+      const start = performance.now();
+      function frame(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = target * eased;
+        el.textContent = val.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+        if(p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    setTimeout(() => {
+      section.querySelectorAll('.trading-stat-value[data-counter]').forEach(el => animateAiPerfCounter(el, 1300));
+    }, reduceMotionAiPerf ? 0 : 500);
+  })();
+
 })();
