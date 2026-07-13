@@ -1478,6 +1478,119 @@
 
         </section>
 
+        <!-- ============ AI PREDICTION ANALYTICS (Module 3D) ============ -->
+        <section class="ai-prediction-analytics" id="aiPredictionAnalytics">
+
+          <div class="section-heading reveal-dash">
+            <h2>AI Prediction Analytics</h2>
+            <p>Visualize how the XeroAI Engine performs across different markets and trading decisions.</p>
+          </div>
+
+          <div class="overview-row overview-row-secondary">
+
+            <!-- AI Confidence Trend -->
+            <div class="chart-card reveal-dash">
+              <h3>AI Confidence Trend</h3>
+              <div class="chart-canvas-wrap">
+                <canvas id="confidenceTrendChart" aria-label="7-day AI confidence trend" role="img"></canvas>
+              </div>
+            </div>
+
+            <!-- Prediction Accuracy by Market -->
+            <div class="performance-card reveal-dash">
+              <h3>Prediction Accuracy by Market</h3>
+
+              <div class="performance-row">
+                <div class="performance-row-head">
+                  <span>Synthetic Indices</span>
+                  <span>97%</span>
+                </div>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill progress-bar-green" data-bar-target="97"></div>
+                </div>
+              </div>
+
+              <div class="performance-row">
+                <div class="performance-row-head">
+                  <span>Forex</span>
+                  <span>95%</span>
+                </div>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill progress-bar-green" data-bar-target="95"></div>
+                </div>
+              </div>
+
+              <div class="performance-row">
+                <div class="performance-row-head">
+                  <span>Cryptocurrency</span>
+                  <span>93%</span>
+                </div>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill progress-bar-green" data-bar-target="93"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="overview-row overview-row-secondary">
+
+            <!-- AI Decision Breakdown -->
+            <div class="chart-card reveal-dash">
+              <h3>AI Decision Breakdown</h3>
+              <div class="decision-rings-row">
+
+                <div class="decision-ring-item">
+                  <div class="confidence-ring-wrap decision-ring-wrap">
+                    <svg class="confidence-ring" viewBox="0 0 100 100" aria-hidden="true">
+                      <circle class="confidence-ring-track" cx="50" cy="50" r="44"/>
+                      <circle class="confidence-ring-fill decision-ring-buy" cx="50" cy="50" r="44" data-target="68"/>
+                    </svg>
+                    <div class="confidence-ring-text"><span class="confidence-value decision-ring-value">0%</span></div>
+                  </div>
+                  <span class="decision-ring-label">BUY Signals</span>
+                </div>
+
+                <div class="decision-ring-item">
+                  <div class="confidence-ring-wrap decision-ring-wrap">
+                    <svg class="confidence-ring" viewBox="0 0 100 100" aria-hidden="true">
+                      <circle class="confidence-ring-track" cx="50" cy="50" r="44"/>
+                      <circle class="confidence-ring-fill decision-ring-sell" cx="50" cy="50" r="44" data-target="28"/>
+                    </svg>
+                    <div class="confidence-ring-text"><span class="confidence-value decision-ring-value">0%</span></div>
+                  </div>
+                  <span class="decision-ring-label">SELL Signals</span>
+                </div>
+
+                <div class="decision-ring-item">
+                  <div class="confidence-ring-wrap decision-ring-wrap">
+                    <svg class="confidence-ring" viewBox="0 0 100 100" aria-hidden="true">
+                      <circle class="confidence-ring-track" cx="50" cy="50" r="44"/>
+                      <circle class="confidence-ring-fill decision-ring-hold" cx="50" cy="50" r="44" data-target="4"/>
+                    </svg>
+                    <div class="confidence-ring-text"><span class="confidence-value decision-ring-value">0%</span></div>
+                  </div>
+                  <span class="decision-ring-label">HOLD Signals</span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- AI Confidence Summary -->
+            <div class="info-card reveal-dash">
+              <div class="info-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v.1M12 11v5"/></svg>
+              </div>
+              <div class="info-card-content">
+                <h4>Confidence Summary</h4>
+                <p>The XeroAI Engine is maintaining consistently high confidence across supported markets. Synthetic Indices currently show the strongest prediction reliability, followed by Forex and Cryptocurrency.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
       </main>
 
       <footer class="app-footer">
