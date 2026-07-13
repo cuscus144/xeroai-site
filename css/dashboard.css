@@ -2273,3 +2273,47 @@
   @media (prefers-reduced-motion: reduce){
     .platform-profit-card{ transform: none !important; }
   }
+
+  /* ============ AI PREDICTION ANALYTICS (Module 3D) ============ */
+
+  .ai-prediction-analytics{ margin-top: 32px; }
+
+  /* ---- AI decision breakdown rings (reuses .confidence-ring-wrap base) ---- */
+  .decision-rings-row{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 6px;
+  }
+
+  .decision-ring-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .decision-ring-wrap{
+    width: 108px;
+    height: 108px;
+    margin: 0;
+  }
+
+  .decision-ring-value{
+    font-size: 20px;
+  }
+
+  .decision-ring-label{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--dim-2);
+    text-align: center;
+  }
+
+  .decision-ring-buy{ stroke: var(--green); filter: drop-shadow(0 0 6px rgba(74,222,128,0.6)); }
+  .decision-ring-sell{ stroke: var(--red); filter: drop-shadow(0 0 6px rgba(248,113,113,0.6)); }
+  .decision-ring-hold{ stroke: var(--gold); filter: drop-shadow(0 0 6px rgba(217,166,92,0.6)); }
