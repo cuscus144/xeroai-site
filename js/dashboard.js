@@ -1120,4 +1120,39 @@
     })();
   })();
 
+  /* ============ AI TIMELINE & RECOMMENDATIONS (Module 3E) ============ */
+  (function(){
+    const section = document.getElementById('aiTimelineSection');
+    if(!section) return;
+
+    const reduceMotionTimeline = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- animate AI Intelligence Summary counters ---- */
+    function animateTimelineCounter(el, duration){
+      const target = parseFloat(el.dataset.target);
+      if(Number.isNaN(target)) return;
+      const suffix = el.dataset.suffix || '';
+      const decimals = el.dataset.decimals !== undefined ? parseInt(el.dataset.decimals, 10) : 0;
+
+      if(reduceMotionTimeline){
+        el.textContent = target.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+        return;
+      }
+
+      const start = performance.now();
+      function frame(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = target * eased;
+        el.textContent = val.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+        if(p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    setTimeout(() => {
+      section.querySelectorAll('.summary-stat-value[data-counter]').forEach(el => animateTimelineCounter(el, 1200));
+    }, reduceMotionTimeline ? 0 : 500);
+  })();
+
 })();
