@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xero Pay — XeroAI</title>
+<meta name="description" content="Manage your XeroAI subscription, wallet, and billing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dash-body app-body">
+
+  <div class="app-sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="app-shell" id="appShell">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="app-sidebar" id="appSidebar">
+
+      <div class="sidebar-top">
+        <a href="dashboard.html" class="dash-logo sidebar-logo">
+          <span class="dash-logo-mark"></span>
+          <span class="sidebar-logo-text">XeroAI</span>
+        </a>
+        <button type="button" class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Collapse sidebar" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Primary">
+        <a href="dashboard.html" class="sidebar-link" data-tooltip="Dashboard">
+          <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="12" width="8" height="9" rx="2"/><rect x="3" y="15" width="8" height="6" rx="2"/></svg></span>
+          <span class="sidebar-label">Dashboard</span>
+        </a>
+        <a href="#" class="sidebar-link" data-tooltip="Trading" data-placeholder="true">
+          <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-4 3 3 5-6 4 4"/><path d="M3 21h18"/></svg></span>
+          <span class="sidebar-label">Trading</span>
+        </a>
+        <a href="#" class="sidebar-link" data-tooltip="Analytics" data-placeholder="true">
+          <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V11M10 20V4M16 20v-7M22 20V13"/></svg></span>
+          <span class="sidebar-label">Analytics</span>
+        </a>
+        <a href="xeropay.html" class="sidebar-link active" data-tooltip="Xero Pay">
+          <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M16 12h3"/></svg></span>
+          <span class="sidebar-label">Xero Pay</span>
+        </a>
+        <a href="#" class="sidebar-link" data-tooltip="Settings" data-placeholder="true">
+          <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span>
+          <span class="sidebar-label">Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a href="#" class="sidebar-link" data-tooltip="Help" data-placeholder="true">
+          <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.9.8c0 1.7-2.4 1.7-2.4 3.4"/><path d="M12 17v.1"/></svg></span>
+          <span class="sidebar-label">Help</span>
+        </a>
+        <a href="login.html" class="sidebar-link sidebar-logout" data-tooltip="Logout">
+          <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg></span>
+          <span class="sidebar-label">Logout</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- ============ MAIN COLUMN ============ -->
+    <div class="app-main">
+
+      <header class="app-topbar">
+        <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+
+        <div class="topbar-welcome">Welcome, <strong>Trader</strong></div>
+
+        <div class="topbar-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="text" placeholder="Search markets, trades, settings…" aria-label="Search">
+        </div>
+
+        <div class="topbar-right">
+          <span class="topbar-datetime" id="topbarDatetime"></span>
+
+          <button type="button" class="topbar-icon-btn" id="notifBtn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+            <span class="notif-dot"></span>
+          </button>
+
+          <div class="topbar-avatar" aria-label="Account">TR</div>
+        </div>
+      </header>
+
+      <main class="app-content">
+
+        <section class="dash-hero reveal-dash">
+          <h1>Xero Pay</h1>
+          <p>Manage your XeroAI subscription, daily access, wallet, billing, and payments securely.</p>
+        </section>
+
+        <section class="modules-grid">
+
+          <div class="module-card reveal-dash" style="--d:0ms">
+            <div class="module-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+            </div>
+            <h3>Subscription</h3>
+            <p>Coming in Module 4A</p>
+          </div>
+
+          <div class="module-card reveal-dash" style="--d:80ms">
+            <div class="module-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+            </div>
+            <h3>Daily Plan</h3>
+            <p>Coming in Module 4B</p>
+          </div>
+
+          <div class="module-card reveal-dash" style="--d:160ms">
+            <div class="module-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M16 12h3"/></svg>
+            </div>
+            <h3>Wallet</h3>
+            <p>Coming in Module 4C</p>
+          </div>
+
+          <div class="module-card reveal-dash" style="--d:240ms">
+            <div class="module-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V11M10 20V4M16 20v-7M22 20V13"/></svg>
+            </div>
+            <h3>Billing</h3>
+            <p>Coming in Module 4D</p>
+          </div>
+
+        </section>
+
+        <p class="demo-footer-note">Xero Pay modules will be added progressively throughout Phase 2.</p>
+
+      </main>
+
+      <footer class="app-footer">
+        <span>XeroAI Dashboard</span>
+        <span>Version 1.0</span>
+      </footer>
+    </div>
+
+    <!-- ============ RIGHT PANEL ============ -->
+    <aside class="app-right-panel">
+
+      <div class="right-panel-section reveal-dash">
+        <h3>Recent Notifications</h3>
+        <ul class="right-panel-list">
+          <li>
+            <span class="rp-dot rp-dot-blue"></span>
+            <span class="rp-text">Your account setup is complete.</span>
+            <span class="rp-time">Just now</span>
+          </li>
+          <li>
+            <span class="rp-dot rp-dot-green"></span>
+            <span class="rp-text">Deriv connected successfully.</span>
+            <span class="rp-time">2m ago</span>
+          </li>
+          <li>
+            <span class="rp-dot rp-dot-gold"></span>
+            <span class="rp-text">Your free trial is active.</span>
+            <span class="rp-time">Today</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="right-panel-section reveal-dash">
+        <h3>Latest Activity</h3>
+        <ul class="right-panel-list">
+          <li>
+            <span class="rp-dot rp-dot-blue"></span>
+            <span class="rp-text">Onboarding completed.</span>
+            <span class="rp-time">Today</span>
+          </li>
+          <li>
+            <span class="rp-dot rp-dot-blue"></span>
+            <span class="rp-text">Binance connected.</span>
+            <span class="rp-time">Today</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="right-panel-section reveal-dash">
+        <h3>System Status</h3>
+        <ul class="right-panel-status">
+          <li><span class="sys-dot"></span>API Gateway <em>Operational</em></li>
+          <li><span class="sys-dot"></span>AI Engine <em>Operational</em></li>
+          <li><span class="sys-dot"></span>Broker Sync <em>Operational</em></li>
+        </ul>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
