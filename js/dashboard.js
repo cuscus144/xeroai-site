@@ -1155,4 +1155,66 @@
     }, reduceMotionTimeline ? 0 : 500);
   })();
 
+  /* ============ XERO PAY: SUBSCRIPTION STATUS (Module 4A) ============ */
+  (function(){
+    const card = document.querySelector('.subscription-status-card');
+    if(!card) return;
+
+    const reduceMotionSub = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- animate the trial progress bar (page-scoped; not covered by the
+       Trading Overview animator, which only runs on dashboard.html) ---- */
+    setTimeout(() => {
+      card.querySelectorAll('[data-bar-target]').forEach(bar => {
+        const target = parseInt(bar.dataset.barTarget, 10) || 0;
+        requestAnimationFrame(() => { bar.style.width = target + '%'; });
+      });
+    }, reduceMotionSub ? 0 : 500);
+
+    /* ---- ripple effect on the Activate Daily Access button ---- */
+    card.querySelectorAll('.rippleable').forEach(btn => {
+      btn.addEventListener('pointerdown', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const ripple = document.createElement('span');
+        ripple.className = 'dash-ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        btn.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
+
+    /* ---- Activate Daily Access modal ---- */
+    const activateBtn = document.getElementById('activateDailyAccessBtn');
+    const overlay = document.getElementById('xpModalOverlay');
+    const closeBtn = document.getElementById('xpModalClose');
+    const dismissBtn = document.getElementById('xpModalDismiss');
+    if(!overlay) return;
+
+    function openModal(){
+      overlay.classList.add('show');
+      overlay.setAttribute('aria-hidden', 'false');
+      if(closeBtn) closeBtn.focus();
+    }
+    function closeModal(){
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden', 'true');
+      if(activateBtn) activateBtn.focus();
+    }
+
+    if(activateBtn) activateBtn.addEventListener('click', openModal);
+    if(closeBtn) closeBtn.addEventListener('click', closeModal);
+    if(dismissBtn) dismissBtn.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', (e) => {
+      if(e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && overlay.classList.contains('show')) closeModal();
+    });
+  })();
+
 })();
