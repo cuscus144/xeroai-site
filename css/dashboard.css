@@ -2416,3 +2416,168 @@
   @media (prefers-reduced-motion: reduce){
     .ai-timeline-item{ animation: none !important; opacity: 1; transform: none; }
   }
+
+  /* ============ XERO PAY: SUBSCRIPTION STATUS (Module 4A) ============ */
+
+  .subscription-status-card{
+    padding: 28px 30px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(94,142,255,0.09), rgba(255,255,255,0.02));
+    border: 1px solid rgba(94,142,255,0.25);
+    box-shadow: 0 30px 70px -36px rgba(94,142,255,0.4);
+    margin-bottom: 20px;
+  }
+
+  .subscription-status-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 22px;
+  }
+  .sub-status-block{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sub-status-badge{ font-size: 12.5px; padding: 7px 14px; }
+
+  .trial-progress-block{ margin-bottom: 22px; }
+  .trial-progress-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: var(--dim);
+    margin-bottom: 10px;
+  }
+  .trial-progress-head span:first-child{ font-weight: 600; color: var(--ink); }
+  .trial-progress-head span:last-child{ font-family: var(--font-mono); font-size: 11.5px; color: var(--dim-2); }
+
+  .subscription-info-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    padding: 20px 0;
+    margin-bottom: 22px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sub-activate-btn{
+    width: 100%;
+  }
+
+  .sub-security-list{ margin-bottom: 0; }
+
+  /* ============ ACTIVATE DAILY ACCESS MODAL ============ */
+
+  .xp-modal-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(4,5,8,0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility 0s linear .3s;
+    padding: 20px;
+  }
+  .xp-modal-overlay.show{
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .3s ease, visibility 0s linear 0s;
+  }
+
+  .xp-modal{
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    padding: 34px 30px 28px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(20,22,28,0.96));
+    border: 1px solid rgba(94,142,255,0.3);
+    box-shadow: 0 40px 90px -30px rgba(0,0,0,0.6), 0 0 40px rgba(94,142,255,0.15);
+    text-align: center;
+    transform: scale(0.94) translateY(10px);
+    opacity: 0;
+    transition: transform .3s cubic-bezier(.16,1,.3,1), opacity .3s ease;
+  }
+  .xp-modal-overlay.show .xp-modal{
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+
+  .xp-modal-close{
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--dim);
+    transition: color .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .xp-modal-close:hover{ color: var(--ink); background: var(--surface-strong); border-color: var(--border-strong); }
+  .xp-modal-close svg{ width: 14px; height: 14px; }
+
+  .xp-modal-icon{
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(94,142,255,0.14);
+    border: 1px solid rgba(94,142,255,0.35);
+    color: var(--signal-2);
+  }
+  .xp-modal-icon svg{ width: 22px; height: 22px; }
+
+  .xp-modal-text{
+    font-size: 14.5px;
+    color: var(--ink);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .xp-modal-btn{
+    padding: 12px 28px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: border-color .25s ease, box-shadow .25s ease, background .25s ease, transform .15s ease;
+  }
+  .xp-modal-btn:hover{
+    border-color: rgba(94,142,255,0.4);
+    box-shadow: 0 0 16px rgba(94,142,255,0.3);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 900px){
+    .subscription-info-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px){
+    .subscription-status-card{ padding: 22px 20px; }
+    .subscription-info-grid{ grid-template-columns: 1fr; }
+    .subscription-status-top{ flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .xp-modal-overlay, .xp-modal{ transition: none !important; }
+  }
