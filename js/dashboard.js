@@ -1217,4 +1217,39 @@
     });
   })();
 
+  /* ============ XERO PAY: DAILY ACCESS (Module 4B) ============ */
+  (function(){
+    const card = document.querySelector('.daily-access-card');
+    const overlay = document.getElementById('xpModalOverlay');
+    if(!card || !overlay) return;
+
+    /* ---- ripple effect on the Daily Access activate button ---- */
+    card.querySelectorAll('.rippleable').forEach(btn => {
+      btn.addEventListener('pointerdown', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const ripple = document.createElement('span');
+        ripple.className = 'dash-ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        btn.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
+
+    /* ---- open the shared "coming soon" modal (already wired to
+       close/dismiss/Escape/click-outside by the Subscription Status
+       module above) ---- */
+    const dailyBtn = document.getElementById('dailyAccessActivateBtn');
+    if(dailyBtn){
+      dailyBtn.addEventListener('click', () => {
+        overlay.classList.add('show');
+        overlay.setAttribute('aria-hidden', 'false');
+        const closeBtn = document.getElementById('xpModalClose');
+        if(closeBtn) closeBtn.focus();
+      });
+    }
+  })();
+
 })();
