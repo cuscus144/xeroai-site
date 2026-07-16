@@ -2581,3 +2581,229 @@
   @media (prefers-reduced-motion: reduce){
     .xp-modal-overlay, .xp-modal{ transition: none !important; }
   }
+
+  /* ============ XERO PAY: DAILY ACCESS (Module 4B) ============ */
+
+  .daily-access-section{ margin-top: 32px; }
+
+  .daily-access-card{
+    padding: 30px 32px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .daily-access-head{ text-align: center; margin-bottom: 26px; }
+  .daily-access-head h2{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(20px, 2.4vw, 24px);
+    color: var(--ink);
+  }
+  .daily-access-head p{
+    margin-top: 6px;
+    font-size: 13.5px;
+    color: var(--dim);
+  }
+
+  /* ---- plan card ---- */
+  .daily-plan-card{
+    max-width: 420px;
+    margin: 0 auto 28px;
+    padding: 26px 28px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(94,142,255,0.1), rgba(255,255,255,0.02));
+    border: 1px solid rgba(94,142,255,0.28);
+    box-shadow: 0 30px 60px -36px rgba(94,142,255,0.4);
+    text-align: center;
+  }
+
+  .daily-plan-top{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .daily-plan-name{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+  }
+  .daily-plan-duration{ color: var(--signal-2); border-color: rgba(94,142,255,0.3); background: rgba(94,142,255,0.1); }
+
+  .daily-plan-features{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    text-align: left;
+    margin-bottom: 22px;
+  }
+  .daily-plan-features li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+
+  .daily-plan-check{
+    flex-shrink: 0;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74,222,128,0.15);
+    border: 1px solid rgba(74,222,128,0.4);
+    color: var(--green);
+  }
+  .daily-plan-check svg{ width: 10px; height: 10px; }
+
+  .daily-plan-price{
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .daily-plan-price-value{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 32px;
+    color: var(--ink);
+  }
+  .daily-plan-price-period{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--dim-2);
+  }
+
+  .daily-plan-btn{
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 11px;
+    font-size: 15px;
+  }
+
+  .daily-plan-demo-tag{
+    display: block;
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--dim-2);
+  }
+
+  /* ---- benefits row ---- */
+  .daily-access-benefits{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+  .benefit-chip{
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--dim);
+  }
+  .benefit-chip .daily-plan-check{ width: 16px; height: 16px; }
+  .benefit-chip .daily-plan-check svg{ width: 8px; height: 8px; }
+
+  /* ---- payment flow preview (vertical mini timeline) ---- */
+  .payment-flow-preview{
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+  .payment-flow-preview h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .payflow-mini{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .payflow-mini-step{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--dim);
+    padding: 9px 18px;
+    border-radius: 100px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .payflow-mini-arrow{
+    color: var(--dim-2);
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  /* ============ PART 1: FULL MOBILE RESPONSIVENESS ============ */
+  /* These rules append/override at existing breakpoints via source
+     order — nothing above is removed or edited, only extended. */
+
+  /* Any two-column secondary row (used across every dashboard module,
+     including Xero Pay's info cards) should stack on tablets and phones. */
+  @media (max-width: 900px){
+    .overview-row,
+    .overview-row-secondary{
+      grid-template-columns: 1fr;
+    }
+
+    /* Keep the Subscription Info Grid fully stacked on tablets too,
+       per this task's explicit "one below another" requirement. */
+    .subscription-info-grid{
+      grid-template-columns: 1fr;
+    }
+
+    .daily-access-benefits{
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px){
+    /* Re-enable the search bar on phones instead of hiding it, and
+       size it to fit comfortably next to the menu button and icons. */
+    .topbar-search{
+      display: flex;
+      flex: 1 1 auto;
+      max-width: none;
+      margin: 0 8px;
+      padding: 8px 12px;
+    }
+    .topbar-search input{ font-size: 13px; }
+
+    .daily-access-card{ padding: 22px 18px; }
+    .daily-plan-card{ padding: 22px 20px; }
+    .daily-access-benefits{ grid-template-columns: 1fr; }
+
+    /* Comfortable touch targets */
+    .sidebar-link{ padding: 12px 12px; }
+    .topbar-icon-btn, .mobile-menu-btn{ width: 38px; height: 38px; }
+    .module-card-icon, .info-card-icon{ width: 44px; height: 44px; }
+  }
+
+  @media (max-width: 480px){
+    .daily-plan-price-value{ font-size: 26px; }
+    .payflow-mini-step{ font-size: 11px; padding: 8px 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .benefit-chip, .payflow-mini-step{ transition: none !important; }
+  }
