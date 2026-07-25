@@ -203,7 +203,7 @@
               </ul>
 
               <div class="daily-plan-price">
-                <span class="daily-plan-price-value">&#8358;15,000</span>
+                <span class="daily-plan-price-value">&#8358;1,000</span>
                 <span class="daily-plan-price-period">/ 24 Hours</span>
               </div>
 
@@ -219,36 +219,80 @@
               <div class="benefit-chip"><span class="daily-plan-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Real-time analytics</div>
               <div class="benefit-chip"><span class="daily-plan-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Secure payment verification</div>
             </div>
-
-            <div class="payment-flow-preview">
-              <h3>How Daily Access Works</h3>
-              <div class="payflow-mini">
-                <span class="payflow-mini-step">User activates Daily Access</span>
-                <span class="payflow-mini-arrow">&#8595;</span>
-                <span class="payflow-mini-step">Flutterwave verifies payment</span>
-                <span class="payflow-mini-arrow">&#8595;</span>
-                <span class="payflow-mini-step">Firestore updates subscription</span>
-                <span class="payflow-mini-arrow">&#8595;</span>
-                <span class="payflow-mini-step">Access activates automatically</span>
-                <span class="payflow-mini-arrow">&#8595;</span>
-                <span class="payflow-mini-step">AI Trading Engine unlocked</span>
-              </div>
-            </div>
           </div>
 
           <p class="demo-footer-note">Your subscription status will always be verified directly from the XeroAI server to ensure fair usage and secure access.</p>
 
         </section>
 
-        <section class="modules-grid">
+        <!-- ============ XERO WALLET (Module 4C) ============ -->
+        <section class="xero-wallet-section" id="xeroWalletSection">
 
-          <div class="module-card reveal-dash" style="--d:80ms">
-            <div class="module-card-icon">
+          <div class="wallet-balance-card reveal-dash">
+            <span class="engine-stat-label">Wallet Balance</span>
+            <div class="wallet-balance-value">&#8358;0.00</div>
+
+            <div class="wallet-status-row">
+              <span class="engine-stat-label">Wallet Status</span>
+              <span class="badge-pill badge-closed wallet-status-badge">Inactive</span>
+            </div>
+
+            <button type="button" class="btn btn-primary wallet-add-funds-btn rippleable" id="addFundsBtn">Add Funds</button>
+          </div>
+
+          <div class="wallet-info-grid">
+            <div class="wallet-info-card reveal-dash">
+              <span class="engine-stat-label">Available Balance</span>
+              <span class="engine-stat-value">&#8358;0.00</span>
+            </div>
+            <div class="wallet-info-card reveal-dash">
+              <span class="engine-stat-label">Today's Spending</span>
+              <span class="engine-stat-value">&#8358;0.00</span>
+            </div>
+            <div class="wallet-info-card reveal-dash">
+              <span class="engine-stat-label">Last Payment</span>
+              <span class="engine-stat-value">No payments yet</span>
+            </div>
+            <div class="wallet-info-card reveal-dash">
+              <span class="engine-stat-label">Next Renewal</span>
+              <span class="engine-stat-value">Not Active</span>
+            </div>
+          </div>
+
+          <div class="monitor-table-card reveal-dash">
+            <h3>Wallet History</h3>
+            <div class="monitor-table-scroll">
+              <table class="monitor-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="4" class="wallet-empty-row">No wallet transactions available.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="info-card reveal-dash">
+            <div class="info-card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M16 12h3"/></svg>
             </div>
-            <h3>Wallet</h3>
-            <p>Coming in Module 4C</p>
+            <div class="info-card-content">
+              <h4>About Xero Wallet</h4>
+              <p>The Xero Wallet is your secure payment wallet for Daily Access subscriptions. After Flutterwave integration, wallet funding and automatic Daily Access activation will happen instantly after successful payment.</p>
+            </div>
           </div>
+
+        </section>
+
+        <section class="modules-grid">
 
           <div class="module-card reveal-dash" style="--d:160ms">
             <div class="module-card-icon">
