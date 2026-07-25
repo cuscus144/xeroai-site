@@ -1252,4 +1252,60 @@
     }
   })();
 
+  /* ============ XERO PAY: XERO WALLET (Module 4C) ============ */
+  (function(){
+    const section = document.getElementById('xeroWalletSection');
+    const overlay = document.getElementById('xpModalOverlay');
+    if(!section || !overlay) return;
+
+    const modalText = document.getElementById('xpModalTitle');
+    const defaultModalText = modalText ? modalText.textContent : '';
+    const walletModalText = 'Wallet funding will become available after Flutterwave integration.';
+
+    /* ---- ripple effect on the Add Funds button ---- */
+    section.querySelectorAll('.rippleable').forEach(btn => {
+      btn.addEventListener('pointerdown', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const ripple = document.createElement('span');
+        ripple.className = 'dash-ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        btn.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
+
+    /* ---- open the shared modal with wallet-specific copy ---- */
+    const addFundsBtn = document.getElementById('addFundsBtn');
+    if(addFundsBtn){
+      addFundsBtn.addEventListener('click', () => {
+        if(modalText) modalText.textContent = walletModalText;
+        overlay.classList.add('show');
+        overlay.setAttribute('aria-hidden', 'false');
+        const closeBtn = document.getElementById('xpModalClose');
+        if(closeBtn) closeBtn.focus();
+      });
+    }
+
+    /* ---- restore the default modal message once it's closed again,
+       so the Subscription/Daily Access buttons keep showing their own
+       text next time they open it. These listeners only reset the
+       text — the existing close/hide behavior is untouched. ---- */
+    function restoreDefaultText(){
+      if(modalText) modalText.textContent = defaultModalText;
+    }
+    const closeBtnEl = document.getElementById('xpModalClose');
+    const dismissBtnEl = document.getElementById('xpModalDismiss');
+    if(closeBtnEl) closeBtnEl.addEventListener('click', restoreDefaultText);
+    if(dismissBtnEl) dismissBtnEl.addEventListener('click', restoreDefaultText);
+    overlay.addEventListener('click', (e) => {
+      if(e.target === overlay) restoreDefaultText();
+    });
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') restoreDefaultText();
+    });
+  })();
+
 })();
