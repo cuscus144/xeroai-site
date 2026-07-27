@@ -2899,3 +2899,57 @@
   @media (prefers-reduced-motion: reduce){
     .wallet-info-card{ transform: none !important; }
   }
+
+  /* ============ XERO PAY: PAYMENT HISTORY (Module 4D) ============ */
+
+  .payment-history-section{ margin-top: 32px; }
+
+  .payment-history-subtitle{
+    font-size: 13.5px;
+    color: var(--dim);
+    margin: -8px 0 18px;
+  }
+
+  .payment-history-empty{
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--dim);
+    line-height: 1.6;
+  }
+
+  /* ============ MOBILE RESPONSIVENESS: PAYMENT HISTORY ============ */
+  @media (max-width: 640px){
+    .payment-history-table thead{ display: none; }
+    .payment-history-table, .payment-history-table tbody, .payment-history-table tr, .payment-history-table td{
+      display: block;
+      width: 100%;
+    }
+    .payment-history-table{ min-width: 0; }
+    .payment-history-table tr{
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+    }
+    .payment-history-table td{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      text-align: right;
+    }
+    .payment-history-table td:last-child{ border-bottom: none; }
+    .payment-history-table td::before{
+      content: attr(data-label);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--dim-2);
+      text-align: left;
+      flex-shrink: 0;
+    }
+  }
