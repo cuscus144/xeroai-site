@@ -292,14 +292,49 @@
 
         </section>
 
-        <section class="modules-grid">
+        <!-- ============ PAYMENT HISTORY (Module 4D) ============ -->
+        <section class="payment-history-section" id="paymentHistorySection">
 
-          <div class="module-card reveal-dash" style="--d:160ms">
-            <div class="module-card-icon">
+          <div class="monitor-table-card reveal-dash">
+            <h3>Payment History</h3>
+            <p class="payment-history-subtitle">View all Daily Access payments made on your XeroAI account.</p>
+
+            <div class="monitor-table-scroll">
+              <table class="monitor-table payment-history-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Plan</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Transaction ID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mono-cell" data-label="Date">&mdash;</td>
+                    <td data-label="Plan">No payments yet</td>
+                    <td class="mono-cell" data-label="Amount">&mdash;</td>
+                    <td data-label="Status"><span class="badge-pill badge-waiting"><span class="dot"></span>Pending</span></td>
+                    <td class="mono-cell" data-label="Transaction ID">&mdash;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="payment-history-empty">No Daily Access payments have been made yet. Activate your Daily Access to begin using XeroAI.</p>
+
+            <p class="demo-footer-note">When payments exist later, this table will automatically populate from Firestore.</p>
+          </div>
+
+          <div class="info-card reveal-dash">
+            <div class="info-card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V11M10 20V4M16 20v-7M22 20V13"/></svg>
             </div>
-            <h3>Billing</h3>
-            <p>Coming in Module 4D</p>
+            <div class="info-card-content">
+              <h4>Automatic Payment Tracking</h4>
+              <p>After Flutterwave integration, every successful Daily Access payment will automatically appear here with payment date, amount paid, transaction reference, and payment status. No manual refresh will be required.</p>
+            </div>
           </div>
 
         </section>
