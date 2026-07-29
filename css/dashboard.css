@@ -2953,3 +2953,6 @@
       flex-shrink: 0;
     }
   }
+
+  /* ============ SETTINGS PAGE (container for future modules) ============ */
+  .settings-modules-container{ margin-top: 32px; }
